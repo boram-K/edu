@@ -44,3 +44,8 @@ ex)void, boolean, byte, char, float, double, int, short
 12. 리터럴이란?
 
 리터럴이란 자료형을 기반으로 표현이 되는 상수를 의미한다. 
+
+
+32비트 시스템에서 최대 사용 할수 있는 메모리 양은?
+
+16GB
