@@ -114,7 +114,7 @@ int eng = 70;
 int math = 95;
 
 int total = kor + eng + math;
-double evg = ((double)kor + eng + math) / 3;
+double avg = ((double)kor + eng + math) / 3;
 
 System.out.println(total);
 System.out.println(avg);
