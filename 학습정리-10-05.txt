@@ -60,12 +60,14 @@ System.out.println('A' + 'A');
 8. "1초과 100미만인가?"를 코딩으로 표현하면?
 >
 	int num1;
+	boolean result;
 	result = (1 < num1) && (num1 < 100);
 	System.out.println(result);
 
 9. "2의 배수 또는 3의 배수?" 를 코딩으로 표현 하면?
 >
 	int num1;
+	boolean result;
 	result = ((num1 % 2) == 0) || ((num1 % 3) == 0);
 	System.out.println(result);
 
