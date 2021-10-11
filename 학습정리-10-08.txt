@@ -23,14 +23,31 @@
 오백원: 1개
 백원: 0개
 >
-	int won = 126500;
-		int w1 =(won%50000);
-		int w2 = (won%50000)/10000;
-		int w3 = (won%10000)/5000;
-		int w4 = (won%5000)/1000;
-		int w5 = (won%1000)/500;
-		int w6 = (won%500)/100;
-		System.out.println("5만원: "+w1+"만원:"+w2+"오천원:"+w3+"천원:"+w4+"오백원:"+w5+"백원:"+w6);
+	126500 의 금액을 한국 화폐로 바꾸었을 때 각각 몇 개의 화폐가 필요한지 계산해서 출력하기
+예) int 126500;
+오만원 : 2장	
+만원:    2장
+오천원 :1장
+천원: 1
+오백원: 1개
+백원: 0개
+>
+	int money = 126_500;
+
+	money = 126_500;
+		
+	System.out.println("오만원 : " + money/50000+ "장");
+	money = money % 50000;
+	System.out.println("만원 : " + money/10000+ "장");
+	money = money % 10000;
+	System.out.println("오천원 : " + money/5000+ "장");
+	money = money % 5000;
+	System.out.println("천원 : " + money/1000+ "장");
+	money = money % 1000;
+	System.out.println("오백원 : " + money/500+ "장");
+	money = money % 500;
+	System.out.println("백원 : " + money/100+ "장");
+	money = money % 100;
 		
 
 3.구구단 출력 하시오.
