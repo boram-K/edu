@@ -158,7 +158,7 @@ class Song{
 		System.out.print(year+"년, ");
 		System.out.print(country+"국적의 ");
 		System.out.print(artist+"가 부른 ");
-		System.out.print(""+title);
+		System.out.print('\"' + title+'\"');
 		
 	}
 }
