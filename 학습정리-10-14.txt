@@ -1,0 +1,211 @@
+1. set classpath 에 대하여 설명하시오.
+-클래스 패스를 실행시키는 명령어이다.
+-클래스패스는 자바 가방머신의 클래스 탐색 경로이다.
+2.절대 경로와, 상대경로란?
+-절대경로란 루트 디렉토리를 시작으로 지정한 것으로 c:로 시작한다.
+-상대경로란 현재 디렉토리를 기준으로 지정한 것으로 기준자체가 자기자신이다. cd..명령어로 한단계 상위폴더로 올라간다.
+3.  cd  . 관 cd .. 의 차이는?
+-cd.는 현재폴더를 의미하고 cd..는 한단계 상위폴더로 올라가는 명령어이다.
+
+4.package 에 대하여 설명해 보시오.
+-패키지(package)는 클래스의 묶음으로 하나의 디렉토리이다. 
+
+5.정보은닉에 대하여 설명하여 보시오.
+-정보은닉이란 Private 키워드를 사용하여 외부에서 클래스 내부의 정보에 접근하지 못하도록 하는 기능이다.
+
+6.접근제한자에 대하여 설명하시오.
+-접근제한자는 변수 또는 메소드의 선언부에 함께 사용되어 부가적인 의미를 부여한다.
+public
+protected
+default 
+privat
+위 네가지 종류가 있으며 아래로 내려갈 수록 접근 범위가 적어진다.
+
+7. 지역변수에 접근 제한자가 필요없는 이유는?
+-지역변수는 한 메소드 또는 반복문 등의 내부에서 사용되고 사라지는 개념이기 때문에 접근 제한자가 필요없다.
+8. 아래의 클래스를 구현하시오. 
+
+Money money = new Money(-126000);
+money.show();
+
+출력 
+잘못된 입력입니다.
+오만원 0장....
+오만원 0장....
+등등등....
+>
+class Money1 {
+	private int money;
+
+	public Money1(int m) {
+		setMoney(m);
+	}
+
+	public void setMoney(int m) {
+		if (m < 0) {
+			money = 0;
+			System.out.println("잘못된 입력입니다.");
+			return;
+		}
+		this.money = m;
+
+	}
+
+	void show() {
+		System.out.println("오만원 : " + money / 50000 + "장");
+		money = money % 50000;
+		System.out.println("만원 : " + money / 10000 + "장");
+		money = money % 10000;
+		System.out.println("오천원 : " + money / 5000 + "장");
+		money = money % 5000;
+		System.out.println("천원 : " + money / 1000 + "장");
+		money = money % 1000;
+		System.out.println("오백원 : " + money / 500 + "장");
+		money = money % 500;
+		System.out.println("백원 : " + money / 100 + "장");
+		money = money % 100;
+
+	}
+
+}
+
+public class Money {
+
+	public static void main(String[] args) {
+
+		Money1 money = new Money1(-126000);
+		money.show();
+
+	}
+
+}
+
+9.아래의 클래스를 구현하시오.
+Employee employee = new Employee("홍길동", 19, "서울 뉴욕시", "개발 1팀");
+employee.printInfo();
+}
+
+출력:
+이름 : 홍길동
+나이 : 19
+주소 : 서울 뉴욕시
+부서 : 개발 1팀
+
+>
+class Employee{
+	private String name;
+	private String adress;
+	private String employee;
+	private int age;
+	
+	Employee(String name,int age,String adress,String employee){
+		this.adress=adress;
+		this.age=age;
+		this.employee=employee;
+		this.name=name;
+						
+	}
+		
+	public void printfo() {
+		System.out.println("이름: "+ name);
+		System.out.println("나이 "+ age);
+		System.out.println("주소 "+ adress);
+		System.out.println("부서 "+ employee);
+	}
+	
+	
+}
+
+
+
+public class Money {
+
+	public static void main(String[] args) {
+
+		Employee employee= new Employee("홍길동",19,"서울 뉴욕시","개발 1팀");
+		employee.printfo();
+		
+		/*출력
+		 * 이름:홍길동
+		 * 나이:19
+		 * 주소: 서울 뉴욕시
+		 * 부서: 개발 1팀
+		 */
+	}
+
+}
+
+10.다음 멤버를 가지고 직사각형을 표현하는 Rectangle 클래스를 작성하라.
+​
+- int 타입의 x, y, width, height 필드 : 사각형을 구성하는 점과 크기 정보
+- x, y, width, height 값을 매개변수로 받아 필드를 초기화하는 생성자
+- int square() : 사각형 넓이 리턴
+- void show() : 사각형의 좌표와 넓이를 화면에 출력
+- boolean contains(Rectangle r) : 매개변수로 받은 r이 현 사각형 안에 있으면 true 리턴 (겹치면 안됨. 완전히 안에 있어야 true)
+- main() 메소드의 코드와 실행 결과는 다음과 같다.
+
+
+
+public static void main(String args[]) {
+		Rectangle r = new Rectangle(2, 2, 8, 7);
+		Rectangle s = new Rectangle(5, 5, 6, 6);
+		Rectangle t = new Rectangle(1, 1, 10, 10);
+		
+		r.show();
+		System.out.println("s의 면적은 "+s.square());
+		if(t.contains(r)) System.out.println("t는 r을 포함합니다.");
+		if(t.contains(s)) System.out.println("t는 s를 포함합니다.");
+	}
+
+출력:
+(2,2)에서 크기가 8x7인 사각형
+s의 면적은 36
+t는 r을 포함합니다
+
+>
+class Rectangle{
+	private int x;
+	private int y;
+	private int width;
+	private int height;
+	
+	Rectangle(int x,int y,int width,int height){
+		this.height=height;
+		this.width=width;
+		this.x=x;
+		this.y=y;	
+	}
+	void square(){
+		System.out.println(height*width);
+		return;
+	}
+	void show() {
+		System.out.println("("+x+","+y+")"+"에서 크기가 "+width+"x"+height+"인 사각형");		
+	}
+	public boolean contains(Rectangle r){
+		if((this.x<r.x) && (this.x+this.width)>(r.x+r.width)) {
+			return true;
+		}else {
+			return false;
+		}
+			
+		 
+	 }
+}
+
+
+
+public class Money {
+
+	public static void main(String args[]) {
+		Rectangle r = new Rectangle(2, 2, 8, 7);
+		Rectangle s = new Rectangle(5, 5, 6, 6);
+		Rectangle t = new Rectangle(1, 1, 10, 10);
+		
+		r.show();
+		System.out.println("의 면적은 "+s.square());
+		if(t.contains(r)) System.out.println("t는 r을 포함합니다.");
+		if(t.contains(s)) System.out.println("t는 s를 포함합니다.");
+	}
+
+}
