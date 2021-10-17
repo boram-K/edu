@@ -122,11 +122,11 @@ public class Rock11 {
 		scanString=sc.nextLine();
 		
 		if(scanString.equals("가위")) {
-			scanValue=0;
+			user=0;
 		}else if(scanString.equals("바위")) {
-			scanValue=1;
+			user=1;
 		}else if(scanString.equals("보")) {
-			scanValue=2;
+			user=2;
 		}
 		if(computer==0) {
 			comStr="가위";
