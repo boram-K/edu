@@ -1,0 +1,138 @@
+1.메소드 오버로딩에 대하여 설명하시오.
+-같은 이름의 메소드를 여러개 만들 수 있으며 파라미터의 type이나 갯수를 달리하여 구분하는 것을 말한다. 그렇지만 반환형 메소드는 메소드 오버로딩의 조건이 아니다.
+2.메소드 오버로딩을 적용한 대표적인 함수는?
+-대표적인 함수는 println();이다.
+3.this 함수에 대하여 설명하시오.
+-this란 기본적으로 자기자신을 의미한다. 그렇기 때문에 this함수는 자기 자신이 가진 생성자를 호출한다.
+4.this 의 용도는?
+-인스턴스 자신을 가르키는 것으로 기본적으로 생성자에서 변수이름이 같을 때 구분하기 위해서 쓰인다.
+5.스트링 객체를 생성하는 2가지 방법은 무엇인가?
+-객체로 집어넣는 방법
+예)String str1=new String("Happy BirthDay");
+-다이렉트로 집어넣는 방법
+예)
+String str2 = "Happy Birthday";
+
+6. 아래의 결과를 예측하고,이유를 설명하시오.
+
+String str1 = "Simple String"; 
+String str2 = "Simple String";
+
+
+String str3 = new String("Simple String");
+String str4 = new String("Simple String");
+
+//참조변수의 참조 값 비교
+if(str1 == str2)
+   System.out.println("str1과 str2는 동일 인스턴스 참조");
+else
+   System.out.println("str1과 str2는 다른 인스턴스 참조");
+
+//참조변수의 참조 값 비교
+if(str3 == str4)
+   System.out.println("str3과 str4는 동일 인스턴스 참조");
+else
+   System.out.println("str3과 str4는 다른 인스턴스 참조");
+
+>str1과 str2는 동일 인스턴스 참조
+str3와 str4는 다른 인스턴스 참조
+-String은 다이렉트로 큰따옴표("")에 들어가는 것에 한해서 중복된 것이면 메모리의 낭비를 막기위해 1개만 올린다. 그렇기 때문에 str1과 str2는 동일 인스턴스 참조로 나오는 것이며, new를 써서 객체로 올릴경우에는 바로 메모리로 올라가기 때문에 주소값이 다른 인스턴스이미로 str3과 str4는 다른 인스턴스 참조가 나온다.
+
+7.immutable 에 대하여 설명하시오.
+-immutable은 원본은 절대 건들지 않고 그대로 보존시킨다. 따라서 생성되는 인스턴스의 개수를 최소화 시킨다.
+
+8.사용자로부터 받은 문자열(영문으로)에서 자음과 모음 개수를 계산하는 프로그램을 작성
+입력:abcd 
+출력:
+
+총글자수는 4개
+자음:3 개
+모음:1 개
+>import java.util.Scanner;
+
+
+public class Edu12 {
+
+	public static void main(String[] args) {
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		String word = sc.next();
+		int j = 0;
+		int m = 0;
+				
+		switch (word) {
+
+		case "a":
+		case "i":
+		case "e":
+		case "o":
+		case "u":
+			m++;
+			break;
+		default:
+			j++;
+			break;
+		}
+		System.out.println("총 글자수는 "+word.length());
+		System.out.println("자음: "+j);
+		System.out.println("모음: "+m);
+	}
+}
+
+9.사용자에게 받은 문자열을 역순으로 화면에 출력하는 프로그램을 작성하시오.
+입력:abcde
+출력:edcba
+>
+
+public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String word = sc.next();
+
+		for (int i = word.length() - 1; i >= 0; i--) {
+			System.out.print(word.charAt(i));
+		}
+	}
+
+10.사용자로부터 키를 입력 받아서 표준 체중을 계산한 후에 사용자의 체중과 비교하여 
+저체중인지, 표준 인지, 과체중인지를 판단하는 프로그램을 작성하라. 
+표준 체중 계산식은 다음을 사용하라.
+표준체중(kg) = ( 키(cm) - 100 ) * 0.9
+
+입력:
+키(cm)를 입력하세요. : 193
+체중(kg)을 입력하세요. : 25
+출력:
+표준 체중은 83.7입니다.
+당신은 저체중 입니다. 
+
+>
+
+import java.util.Scanner;
+
+class User {
+
+	private int h;
+	private int w;
+	private double stanW;
+
+	public User(int h, int w) {
+		this.h = h;
+		this.w = w;
+	}
+
+	public double showStanW() {
+		double stanW = ( h - 100 ) * 0.9;
+		System.out.println("표준체중은 " + stanW + "입니다.");
+		return stanW;
+	}
+
+	public void result() {
+		if (w > ((h/ stanW) * 100)) {
+			System.out.println("당신은 과체중입니다");
+		} else if (w <((h/ stanW) * 100)) {
+			System.out.println("당신은 저체중입니다.");
+		} else {
+			System.out.println("당신은 정상체중입니다.");
+		}
+
+	}
