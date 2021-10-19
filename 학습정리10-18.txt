@@ -159,3 +159,17 @@ class User {
 		}
 
 	}
+public class Edu1018 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int h = sc.nextInt();
+		int w = sc.nextInt();
+		User user = new User(h,w);
+		user.showStanW();
+		user.result();
+		
+		
+		}
+	}
+	
