@@ -144,15 +144,15 @@ class User {
 	}
 
 	public double showStanW() {
-		double stanW = ( h - 100 ) * 0.9;
+		double stanW = (this.h - 100 ) * 0.9;
 		System.out.println("표준체중은 " + stanW + "입니다.");
 		return stanW;
 	}
 
 	public void result() {
-		if (w > ((h/ stanW) * 100)) {
+		if (this.w >stanW) {
 			System.out.println("당신은 과체중입니다");
-		} else if (w <((h/ stanW) * 100)) {
+		} else if (this.w <stanW) {
 			System.out.println("당신은 저체중입니다.");
 		} else {
 			System.out.println("당신은 정상체중입니다.");
