@@ -48,34 +48,57 @@ str3와 str4는 다른 인스턴스 참조
 총글자수는 4개
 자음:3 개
 모음:1 개
->import java.util.Scanner;
+>
+import java.util.Scanner;
 
+class ConsVowCount {
+	private String word;
+	private int consonant;
+	private int vowel;
 
-public class Edu12 {
-
-	public static void main(String[] args) {
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-		String word = sc.next();
-		int j = 0;
-		int m = 0;
-				
-		switch (word) {
-
-		case "a":
-		case "i":
-		case "e":
-		case "o":
-		case "u":
-			m++;
+	public ConsVowCount(String word) {
+		this.word = word;
+		consonant = 0;
+		vowel = 0;
+	}
+	private void count(char ch) {
+		switch (ch) {
+		case 'a':
+		case 'e':
+		case 'i':
+		case 'o':
+		case 'u':
+		case 'A':
+		case 'E':
+		case 'I':
+		case 'O':
+		case 'U':
+			vowel++;
 			break;
 		default:
-			j++;
-			break;
+			consonant++;
 		}
-		System.out.println("총 글자수는 "+word.length());
-		System.out.println("자음: "+j);
-		System.out.println("모음: "+m);
+	}
+	public void showCount() {
+		for (int i = 0; i < word.length(); i++) {
+			char ch = word.charAt(i); // 인덱스 0부터
+			count(ch);
+		}
+		System.out.println("총 글자수는 " + word.length() + "개");
+		System.out.println("자음: " + consonant);
+		System.out.println("모음: " + vowel);
+	}
+}
+
+public class Edu1015 {
+
+	public static void main(String[] args) {
+		// 입력받은 문자열(영문)에서 자음과 모음개수계산
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("문자를 입력해주세요.");
+		ConsVowCount cons = new ConsVowCount(sc.next());
+		cons.showCount();
 	}
 }
 
