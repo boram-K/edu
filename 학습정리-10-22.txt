@@ -1,0 +1,238 @@
+1. is a 관계와 has a 관계란?
+is-a관계는 상속관계를 말한다. 그러나 
+class Computer{	}
+class Memory extends Computer{	}
+처럼 상속관계가 아닌 애매한 경우에는
+->class Computer{Memory memory; }
+이런식으로  has-a관계로 써줘야한다.
+
+2.다형성(polymorphism)이란 무엇인가?
+여러가지 형태를 가질 수 있는 것으로 하나의 메소드나 클래스가 있을 떄 이것들이 다양한 방법으로 동작하는 것. 대표적으로 오버로딩,오버라이딩이 있다. 
+즉, 부모타입의 참조변수로 자식타입(상속관계)의 객체를 다룰 수 있는 것이 다형성의 기본 개념이다.
+
+3. 아래가 되지 않는 이유에 대하여 메모리 그림으로 설명하시오.
+
+//MobilePhone(부모) SmartPhone(자식)
+
+
+SmartPhone ph2 = new MobilePhone();
+
+
+4.메소드 오버라이딩(Overriding) 이란?
+-메소드 오버라이딩이란 상속 관계에서 리턴 타입과 함수명이 같은 함수로 내용물만 달리하는 것이다. 오버라이딩은 부모=자식에서 자식것을 실현되게끔 컴파일되도록 되어있다.
+
+5.자바의 정석: 연습 문제 56page - 3개의 함수를 완성 하시오.
+>
+class Buyer {
+	int money = 1000;
+	Product[] cart = new Product[3]; // 구입한 제품을 저장하기 위한 배열
+	int i = 0; // Product cart index 배열 에 사용될
+
+	public void buy(Product p) {
+		
+		if(money<p.price) {
+			System.out.println("금액이 부족하여 "+p+"를 살 수 없습니다.");
+			return;
+		}
+		money -= p.price;
+		add(p);
+
+	}
+	public void add(Product p) {
+		
+		if(i>=cart.length) {
+			Product[] cart2 = new Product[cart.length*2];
+			System.arraycopy(cart, 0, cart2, 0, cart.length);
+			cart = cart2;
+		}
+		cart[i++]=p;
+		
+	} // add(Product p
+
+	public void summary() {
+		
+		int sum=0;
+		System.out.print("구입한 목록: ");
+		for(int i = 0; i<cart.length;i++) {
+			System.out.print(cart[i]+" ");
+		}
+		System.out.println();
+		for(int i = 0; i<cart.length;i++) {
+			sum += cart[i].price;			
+		}System.out.println("사용한 금액: "+sum);
+		System.out.println("남은 금액: "+ (money));
+		
+	} // summary()
+
+}
+
+6. 갬블링 게임을 만들어 보자. (문제 5번 과 6번은 상속은 안써도됨)
+두 사람이 게임을 진행한다. 
+이들의 이름을 키보드로 입력 받으며 
+각 사람은 Person 클래스로 작성하라. 
+그러므로 프로그램에는 2개의 Person 객체가 생성되어야 한다.
+
+ 두 사람은 번갈아 가면서 게임을 진행하는데 
+각 사람이 자기 차례에서 <Enter> 키를 입력하면, 
+3개의 난수가 발생되고 이 숫자가 모두 같으면 승자가 되고 
+게임이 끝난다.
+ 난수의 범위를 너무 크게 잡으면 3개의 숫자가 
+일치하게 나올 가능성이 적기 때문에 숫자의 범위는 
+1~3까지로 한다.
+=========================
+1번째 선수 이름>>수희
+2번째 선수 이름>>연수
+[수희]:
+3  1  1  아쉽군요!
+[연수]:
+3  1  3  아쉽군요!
+[수희]:
+2  2  1  아쉽군요!
+[연수]:
+1  1  2  아쉽군요!
+[수희]:
+3  3  3  수희님이 이겼습니다! 
+
+
+>
+import java.util.Scanner;
+
+class Person{
+	private String name;
+	
+	public Person(String player) {
+		this.name=player;
+	}
+
+	public String userName() {
+		return name;
+	}
+	
+}
+public class ArryGame {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Person[] user = new Person[2];
+		for (int i = 0; i < user.length; i++) {
+			System.out.println((i + 1) + "번째 선수 이름>");
+			String player = sc.next();
+			user[i] = new Person(player);
+		}
+		while (true) {
+			int a = 0;
+			int b = 0;
+			int c = 0;
+			for (int i = 0; i < user.length; i++) {
+				System.out.println("[" + user[i].userName() + "]");
+				String enter = sc.nextLine();
+				if (enter.equals("")) {
+					a = (int) (Math.random() * 3 + 1);
+					b = (int) (Math.random() * 3 + 1);
+					c = (int) (Math.random() * 3 + 1);
+					if ((a == b) && (b == c)) {
+						System.out.println(a + " " + b + " " + c + user[i].userName() + "님이 이겼습니다!");
+						break;
+					} else {
+						System.out.println(a + " " + b + " " + c + " 아쉽군요!");
+						continue;
+					}
+				} 
+				else {
+					break;
+				}
+			}
+			if ((a == b) && (b == c)) {
+				System.out.println("[종료]");
+				break;
+			}
+			
+		}
+	}
+}
+
+7. 프로그래밍
+
+문제 5의 갬블링 게임을 n명이 하도록 수정하라.
+실행 예시와 같이 게임에 참여하는 선수의 수를 입력 받고 각 선수의 이름을 
+입력 받도록 수정하라.
+
+겜블링 게임에 참여할 선수 숫자>>3
+1번째 선수 이름>>황
+2번째 선수 이름>>이
+3번째 선수 이름>>김
+[황]:
+2  3  3  아쉽군요!
+[이]:
+1  2  2  아쉽군요!
+[김]:
+2  2  3  아쉽군요!
+[황]:
+3  2  2  아쉽군요!
+[이]:
+1  1  3  아쉽군요!
+[김]:
+2  2  1  아쉽군요!
+[황]:
+2  2  2  황님이 이겼습니다!
+
+>
+import java.util.Scanner;
+
+class Person{
+	private String name;
+	
+	public Person(String player) {
+		this.name=player;
+	}
+
+	public String userName() {
+		return name;
+	}
+	
+}
+public class ArryGame {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("겜블링 게임에 참여할 선수 숫자>>");
+		int playrNum = sc.nextInt();	
+		Person[] user = new Person[playrNum];
+		for (int i = 0; i < user.length; i++) {
+			System.out.println((i + 1) + "번째 선수 이름>");
+			String player = sc.next();
+			user[i] = new Person(player);
+		}
+		while (true) {
+			int a = 0;
+			int b = 0;
+			int c = 0;
+			for (int i = 0; i < user.length; i++) {
+				System.out.println("[" + user[i].userName() + "]");
+				String enter = sc.nextLine();
+				if (enter.equals("")) {
+					a = (int) (Math.random() * 3 + 1);
+					b = (int) (Math.random() * 3 + 1);
+					c = (int) (Math.random() * 3 + 1);
+					if ((a == b) && (b == c)) {
+						System.out.println(a + " " + b + " " + c +" "+user[i].userName() + "님이 이겼습니다!");
+						break;
+					} else {
+						System.out.println(a + " " + b + " " + c + " 아쉽군요!");
+						continue;
+					}
+				} 
+				else {
+					break;
+				}
+			}
+			if ((a == b) && (b == c)) {
+				System.out.println("[종료]");
+				break;
+			}
+			
+		}
+	}
+}
+
+
