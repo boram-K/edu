@@ -65,16 +65,18 @@ class ColorPoint extends Point{
 		this.color=color;
 				
 	}
-	public void setXY() {
+	public void setXY(int x,int y) {
 		super.move(x, y);
 		return;
 	}
-	public String setColor() {		
-		return color;
+	public void setColor(String color) {		
+		this.color=color;
 	}
 	public String toString() {
-		return color+"색의 ("+super.x+","+super.y+") 의 점";
-	}
+		String str = null;
+		str = this.color + "색의 ("+ super.getX()+","+super.getY()+")의 점";
+		return str;
+	}	
 	
 }
 
