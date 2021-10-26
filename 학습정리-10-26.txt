@@ -1,0 +1,182 @@
+1. Object 클래스란?
+-자바에서 제동하는 중요한 클래스 중 하나로 java.lang.Object 클래스는 모든 클래스의 최상위 클래스로 모든 클래스는 Object 클래스를 상속받는다. 직접적으로 상속받지 않더라도 부모클래스가 이미 상속받고 있기 때문에 간접적으로 상속받고 있다고 할 수 있다.
+
+2. 아래의 소스코드에 대하여 아래와 같이 출력되는 이유는?
+출력
+A@28a418fc
+==============
+class A{
+}
+
+public class Test {
+	public static void main(String[] args) {
+		A a = new A();
+		System.out.println(a); // String s = String.valueOf(x); -> s가 주소 뿌림
+	}
+}
+
+->println에서 클래스A의 toString함수를 찾아서 오버라이딩 받지 못하면 Object클래스에 있는 toString이 호출되어 클래스명@해시코드를 출력하도록 되어있기때문이다. 만약 A a=null;로 넣게되면 null이 출력된다.
+
+3. class이름 및 함수에서 final의 의미는?
+-final로 클래스를 선언하면 상속할 수 없게 한다.
+-final로 메소드를 선언하게 되면 다른 클래스에서 오버라이딩할 수 없게한다.
+
+4.아래의 Main돌아 가도록 프로그래밍 하시오.
+
+interface Printable { // MS가 정의하고 제공한 인터페이스
+	public void print(String doc);
+}
+
+	//SPrinterDriver 와 LPrinterDriver를 만드시오
+	public static void main(String[] args) {
+		String myDoc = "This is a report about...";
+
+		// 삼성 프린터로 출력
+		Printable prn = new SPrinterDriver();
+		prn.print(myDoc);
+		System.out.println();
+
+		// LG 프린터로 출력
+		prn = new LPrinterDriver();
+		prn.print(myDoc);
+	}
+
+/*
+출력: 
+From Samsung printer
+This is a report about ...
+From LG printer
+This is a report about ...
+*/
+
+>
+class SPrinterDriver implements Printable{
+	public void print(String doc) {
+		System.out.println("From Samsung printer");
+		System.out.println(doc);
+	}
+}
+class LPrinterDriver implements Printable{
+	public void print(String doc) {
+		System.out.println("From LG printer");
+		System.out.println(doc);
+	}
+}
+
+5. @Override 에 대하여 설명하시오.
+-1.5버전부터,기본적으로 컴파일러에게 직접 영향을 주진 못한다.
+-상위 클래스의 메소드를 오버라딩하는 것이 목적이라는 선언으로 오버라이딩을 하는 형태가 아니라면 컴파일 에러를 내준다.
+
+6. interface 에 대하여 설명해 보시오.
+-interface활용=>약속, 규약, 강제 =>표준
+-interface가 나오게 된 배경은 자바=단일상속이지만 다중상속 지원하기 위해 나오게되었다. 또한 class와 마찬가지로 객체생성이 가능하다.
+이렇게까지 쓰이지는 않지만 예를들어 
+interface Printable{
+	
+	 void print(String doc);//추상함수
+}
+interface Printable2{
+	void print(String doc);
+}
+interface Printable3{
+	void print(String doc);
+}
+class A{
+	
+}
+class B{}
+
+class Printer extends A implements Printable,Printable2,Printable3{
+
+	@Override
+	public void print(String doc) {
+		System.out.println(doc);				
+	}	
+}
+이런 사용도 가능하다. 기본적으로 상속은 1개만 할 수 있지만 인터페이스는 다중 상속이 가능하다.
+
+7.interface 안에 올 수 있는 것은 두가지를 말해 보시오?
+-interface안에는 (final이나 static)로 선언된 상수(거의안함)와 abstract가 붙은 추상메소드가 들어간다.
+
+8. abstract 키워드란?
+-abstract = 자손이 구현하라.
+abstract는 함수선언만 가능하고 실제 내용 구현부분이 없다. 또한 public abstract는 생략가능하다. 없으면 컴파일러가 붙여준다.
+
+9.아래의 결과가 나오도록 프로그래밍 하시오.
+Object obj = new Circle(10);
+System.out.println(obj);
+
+//출력: 넓이는 314.134 입니다. (예시)
+>
+class Circle{
+	private int num;
+	
+	public Circle(int num) {
+		this.num=num;
+	}	
+	public String toString() {		
+		return "넓이는 "+(num*10)+" 입니다.";
+	}
+}
+10. 아래의 프로그래밍을 하시오.
+
+아래의 인터페이스에 맞추어(상속하여) 아래를 프로그래밍 하시오.
+
+Circle, Rectangle , Triangle
+
+
+interface AreaGetable{
+double getArea();
+}
+
+
+main(){
+
+AreaGetable area = new Circle(4);
+sysout(area.getArea())
+
+area = new Rectangle(4,5);
+sysout(area.getArea())
+
+area = new Triangle(4,5);
+sysout(area.getArea())
+}
+>
+interface AreaGetable {
+	double getArea();
+}
+class Circle implements AreaGetable{
+	private double r;
+	
+	public Circle(double r) {
+		this.r=r;
+	}
+	@Override
+	public double getArea() {
+		return r*r*Math.PI;
+	}	
+}
+class Rectangle implements AreaGetable{
+	private double w,h;
+	
+	public Rectangle(double w,double h) {	
+		this.h=h;
+		this.w=w;
+	}
+	@Override
+	public double getArea() {
+		return w*h;
+	}	
+}
+class Triangle implements AreaGetable{
+	private double w,h;
+	
+	public Triangle(double w,double h) {
+		this.h=h;
+		this.w=w;
+	}
+	@Override
+	public double getArea() {
+		return (w*h)/2;
+	}	
+}
