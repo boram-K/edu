@@ -1,0 +1,163 @@
+1. Maker 인터페이스에 대하여 설명하시오.
+-클래스에 특정표시를 해 두기 위한 목적으로 정의된 인터페이스를 마커 인터페이스라고 한다. 마커 인터페이스에는 구현해야할 메소드가 없는 경우가 흔하다.
+
+2. 추상 클래스(abstract class)에 대하여 설명하시오.
+-하나 이상의 추상 메소드를 지니는 클래스를 가리켜 추상 클래스라고 한다. 그리고 추상 클래스를 대상으로는 인스턴스 생성이 불가능하다. 물론 참조변수 선언은 가능하다. 또한 추상 메소드를 가지고 있을 때 abstract를 붙여주지 않으면 컴파일 에러가 일어난다.
+
+3.Exception 에 대하여 설명하시오.
+-'예외적인 상황'을 줄여서 '예외'라 한다. 단순한 문법 오류가 아닌 실행 중간에 발생하는 '정상적이지 않은 상황'을 뜻한다.
+예외에 대한 처리방법은 프로그래며가 결정할 수 있으며 자바의 기본 예외처리 메커니즘은 문제가 발생한 지점에 대한 출력과 프로그램 종료이다. 보통 예외처리를 위해 try~catch문법을 쓴다.
+
+4.에러를 내는 주체는?
+-컴파일러이다.
+
+5. 아래의 소스코드를 참고 하여 중에 Main안에 있는 두개의
+getAllArea 과 getArea 함수를 완성하시오.
+================================
+interface AreaGetable {
+	double getArea();
+
+}
+
+class Circle implements AreaGetable {
+	private double r;
+
+	public Circle(double r) {
+		this.r = r;
+	}
+
+	@Override
+	public double getArea() {
+
+		return r * r * Math.PI;
+	}
+}
+
+class Rectangle implements AreaGetable {
+
+	private double width, height;
+
+	public Rectangle(double width, double height) {
+		this.height = height;
+		this.width = width;
+	}
+
+	@Override
+	public double getArea() {
+		// TODO Auto-generated method stub
+		return width * height;
+	}
+}
+
+
+class CondOp {
+	public static void main(String[] args) {
+
+		AreaGetable[] area = { new Rectangle(4, 5), new Circle(4), new Circle(4), new Circle(5), new Circle(5),
+				new Circle(6) ,new Rectangle(4, 5),new Rectangle(4, 5),new Rectangle(4, 5),};
+
+		// AreaGetable oneArea = new Circle(4);
+		System.out.println(getAllArea(area));
+		System.out.println(getArea(new Circle(10))); //314
+		System.out.println(getArea(new Rectangle(4, 5))); //20
+
+		// oneArea = new Rectangle(4,5);
+		// System.out.println(area.getArea());
+
+	}
+}
+
+>
+public static int getArea(AreaGetable a) {
+		 	
+	return (int)a.getArea();
+}
+	
+public static double getAllArea(AreaGetable[] area) {
+	double sum = 0;
+	for (int i = 0; i < area.length; i++) {
+		sum += area[i].getArea();
+	}
+	return sum;
+}
+
+6. 아래의 결과를 나타내는 사칙연산 계산기를 완성하시오.
+-주의 잘못된 입력이 있으면 처음부터 다시 입력을 받도록 
+예외처리 구문(try catch)을 넣을것
+
+
+*** 계산기 ***
+수1 : 10
+수2 : 20
+연산 : +
+계산 결과 : 30
+계속 하시겠습니까? 계속 : Y , 종료 : N
+y
+*** 계산기 ***
+수1 : R
+잘못된 입력입니다. 다시입력해 주세요
+*** 계산기 ***
+수1 : 10
+수2 : 20
+연산 : *
+계산 결과 : 200
+계속 하시겠습니까? 계속 : Y , 종료 : N
+y
+*** 계산기 ***
+수1 : 90
+수2 : 80
+연산 : /
+계산 결과 : 1
+계속 하시겠습니까? 계속 : Y , 종료 : N
+n
+종료입니다.
+
+>
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Edu1020 {
+	public static void main(String[] args) {
+		Scanner kb = new Scanner(System.in);
+		while(true) {
+			try {
+				System.out.println("수1: ");
+				int n1 = kb.nextInt();
+				System.out.println("수2: ");
+				int n2 = kb.nextInt();
+				System.out.println("연산: ");
+				char c = kb.next().charAt(0);
+				switch (c) {
+				case '+': {
+					System.out.println("계산결과: " + (n1 + n2));
+					break;
+				}case '-': {
+					System.out.println("계산결과: " + (n1 - n2));
+					break;
+				}case '/': {
+					System.out.println("계산결과: " + (n1/ n2));
+					break;
+				}case '*': {
+					System.out.println("계산결과: " + (n1 * n2));
+					break;
+				}
+				default:
+					throw new IllegalArgumentException("Unexpected value: " + c);
+				}
+				
+			}catch (StringIndexOutOfBoundsException e) {
+				System.out.println("잘못된입력입니다. 다시입력해주세요");
+			} 
+			catch (InputMismatchException e) {
+				System.out.println("잘못된입력입니다. 숫자로입력해주세요");
+			}
+			System.out.println("계속하시겠습니까?계속:Y,종료:N");
+			char ch = kb.next().charAt(0);
+			if(ch=='Y'||ch=='y') {
+				continue;
+			}else if(ch=='N'||ch=='n') {
+				break;
+			}
+		}
+	}
+}
