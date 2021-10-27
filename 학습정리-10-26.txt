@@ -115,7 +115,7 @@ class Circle{
 		this.num=num;
 	}	
 	public String toString() {		
-		return "넓이는 "+(num*10)+" 입니다.";
+		return "넓이는 "+(num*num*Math.PI)+" 입니다.";
 	}
 }
 10. 아래의 프로그래밍을 하시오.
