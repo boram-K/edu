@@ -62,53 +62,68 @@
 >
 import java.util.Scanner;
 
-class Person{
-	private int age;
+class Person2{
 	private String name,adress;
-			
+	private int age;
+	
+	public Person2(String name,int age,String adress) {
+		this.adress=adress;
+		this.age=age;
+		this.name=name;
+	}
+	@Override
+	public String toString() {
+		return ("이름 : "+this.name+"\n"+"나이 : "+this.age+"\n"+"주소 : "+this.adress+"/n");
+	}
+		
 }
-class Student extends Person{
-	private String scname,depart;
+class Student extends Person2{
+	private String school,major;
 	private int id;
 	private double[] avg = new double[8];
-	Scanner sc = new Scanner(System.in);
 	
-	public Student
-	(String name, int age, String adress, String scname, String depart, int id) {
-		super();
-		this.depart=depart;
+	public Student(String name,int age,String adress,String school,String major,int id) {
+		super(name,age,adress);
 		this.id=id;
-		this.scname=scname;
+		this.major=major;
+		this.school=school;		
 	}
-	public void setAvg(double[] avg) {
-		for(int i=0; i<avg.length;i++) {
-			avg[i]=sc.nextDouble();
+	public void setAvg(double avg) {
+		for(int i=0;i<this.avg.length;i++) {
+			this.avg[i]=avg;
 		}
-	}	
-	public double[] getAvg() {
-		return avg;
-	}
-	public double average(){
-		setAvg(avg);
-		double sum=0;		
-		for(int i=0; i<avg.length;i++) {
-			sum += avg[i];
-		}return sum/avg.length;
-	}
-
-}
-
-public class Test2 {
-
-	public static void main(String[] args) {	
 		
-		Person k = 
-			new Student("김다정",20,"서울시 관악구","동양서울대학교","전산정보학과",20132222);
+	}
+	public double average() {
+		double sum = 0;
+		for(int i=0;i<this.avg.length;i++) {
+			sum+=avg[i];
+		}
+		return sum/avg.length;
+	}
+	@Override
+	public String toString() {		
 		
-		System.out.println("8학기 총 평균 평점은 "+((Student) k).average()+"점입니다.");	
+		return (super.toString()+"학교 :" +this.school+"\n"+"학과 : "+ this.major+"\n"+"학번 : "+this.id);
 	}
 	
+	
 }
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Student student = 
+				new Student("김다정", 20, "서울시 관악구", "동양서울대학교", "전산정보학과", 20132222 );
+		System.out.println(student);
+		System.out.println("8학기 학점을 순서대로 입력하세요");
+		for(int i =0; i<8;i++) {
+			System.out.println(i+1+"번째 학점");
+			double score = sc.nextDouble();
+			student.setAvg(score);
+		}
+		System.out.println("학기 총 평균 평점은 "+student.average()+"점 입니다.");
+
+	}
+
 
 7.철수 학생은 다음 3개의 필드와 메소드를 가진 4개의 클래스 Add, Sub, Mul, Div를 작성하려고 한다.
 
