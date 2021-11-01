@@ -26,8 +26,12 @@ System.out.println(num1);
 System.out.println(num2);
 	
 3.BigInteger 클래스에 대하여 설명하시오. 
--
-
+-매우 큰 정수표현을 위해 사용된다. int나 Long의 범위로도 담을 수 없는 큰 수를 다뤄야 할 때, BigInteger은 문자열 형태로 이루어져 있어 
+숫자의 범위가 무한하기에 어떠한 숫자이든지 담을 수 있다.
+ex)
+BigInteger big1 = new BigInteger("1000000000000000000000");
+BigInteger big2 = new BigInteger("-9999999999999999999999");
+와 같이 선언할 수 있다. 또한 BigInteger는 문자열이기 때문에 사칙연산을 하기 위해서는 BigInteger클래스 안에 있는 함수를 사용해야한다.
 
 4.
 - 클래스 Person은 이름을 저장하는 필드 구성
