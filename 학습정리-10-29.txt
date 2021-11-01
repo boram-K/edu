@@ -150,7 +150,7 @@ abstract class Calc {
 	void setValue(int a, int b) {
 	}
 
-	int calculate() {
+	abstract int calculate() {
 		return 0;
 	}
 
