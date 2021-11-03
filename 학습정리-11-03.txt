@@ -36,7 +36,8 @@ System.out.println(ap);
 System.out.println(og);
 }
 이경우 실행결과 오류가 발생한다.aBox.set("Apple"); oBox.set("Orange"); 에서 사과와 오렌지가 아닌 문자열을 담았는데 
-Apple ap = (Apple)aBox.get(); Orange og = (Orange)oBox.get(); 에서 상자에 과일이 담기지 않았는데 과일을 꺼내려 했기때문에 오류가 발생한 것이다. 이 경우 컴파일 과정에서 오류가 발견되지 않는다.
+Apple ap = (Apple)aBox.get(); Orange og = (Orange)oBox.get(); 에서 상자에 과일이 담기지 않았는데 
+과일을 꺼내려 했기때문에 오류가 발생한 것이다. 이 경우 컴파일 과정에서 오류가 발견되지 않는다.
 ------------------------------------------------------------------------------
 Box aBox = new Box();
 Box oBox = new Box();
@@ -48,7 +49,9 @@ oBox.set("Orange");
 System.out.println(aBox.get());
 System.out.println(oBox.get());
 
-더군다나 이경우 실행오류도 나타나지 않고 그래도 Apple과 Orange가 출력된다.  이것을 해결하기 위해서 기존 소스코드로는 해결이 불가능 하기때문에 새로운 문법을 창조해서 적용시켰는데 이것이 Generic코드이다.
+더군다나 이경우 실행오류도 나타나지 않고 그래도 Apple과 Orange가 출력된다.  
+이것을 해결하기 위해서 기존 소스코드로는 해결이 불가능 하기때문에 새로운 문법을 창조해서 적용시켰는데 이것이 Generic코드이다.
+
 
 2. 아래의 결과가 나오도록 프로그래밍 하시오.
 class DDBoxDemo {
