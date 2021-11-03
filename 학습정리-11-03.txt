@@ -35,8 +35,9 @@ Orange og = (Orange)oBox.get();
 System.out.println(ap);
 System.out.println(og);
 }
-이경우 실행결과 오류가 발생한다.aBox.set("Apple");
-oBox.set("Orange"); 에서 사과와 오렌지가 아닌 문자열을 담았는데 Apple ap = (Apple)aBox.get(); Orange og = (Orange)oBox.get(); 에서 상자에 과일이 담기지 않았는데 과일을 꺼내려 했기때문에 오류가 발생한 것이다. 이 경우 컴파일 과정에서 오류가 발견되지 않는다.
+이경우 실행결과 오류가 발생한다.aBox.set("Apple"); oBox.set("Orange"); 에서 사과와 오렌지가 아닌 문자열을 담았는데 
+Apple ap = (Apple)aBox.get(); Orange og = (Orange)oBox.get(); 에서 상자에 과일이 담기지 않았는데 과일을 꺼내려 했기때문에 오류가 발생한 것이다. 이 경우 컴파일 과정에서 오류가 발견되지 않는다.
+------------------------------------------------------------------------------
 Box aBox = new Box();
 Box oBox = new Box();
 
