@@ -19,13 +19,17 @@ public static <T> Box<T> makeBox(T o){.......}
 
 3.와일드 카드란?
 -와일드 카드는 인스턴스 타입이 다른 일반 메소드를 인자로 전달 가능하게 해주는 문법이다. 
-예를들어 publix static <T> void peekBox(Box<T> box){system.out.println(box); }에서 Box<Integer>의 인스턴스,Box<String>의 인스턴스를 인자로 전달 가능하다. 
+예를들어 publix static <T> void peekBox(Box<T> box){system.out.println(box); }에서 
+Box<Integer>의 인스턴스,Box<String>의 인스턴스를 인자로 전달 가능하다. 
 
-하지만 publix static void peekBox(Box<Object> box){system.out.println(box); } 에서 Box<Integer>의 인스턴스,Box<String>의 인스턴스를 인자로 전달 가능할 것 같지만 
+하지만 publix static void peekBox(Box<Object> box){system.out.println(box); } 에서 
+Box<Integer>의 인스턴스,Box<String>의 인스턴스를 인자로 전달 가능할 것 같지만
 Box<Object>와  Box<Integer>,Box<String>는 상속관계를 형성하지 않기때문에 전달이 불가능하다. 
-이경우 publix static void peekBox(Box<?> box){system.out.println(box); } 이렇게 고치게 되면 Box<Integer>와Box<String>의 인스턴스를 인자로 전달가능하다.
+이경우 publix static void peekBox(Box<?> box){system.out.println(box); } 이렇게 고치게 되면 
+Box<Integer>와Box<String>의 인스턴스를 인자로 전달가능하다.
 
-publix static <T> void peekBox(Box<T> box){system.out.println(box); }와 publix static void peekBox(Box<?> box){system.out.println(box); }는 기능적으로 동일하다. 
+publix static <T> void peekBox(Box<T> box){system.out.println(box); } 와 
+publix static void peekBox(Box<?> box){system.out.println(box); }는 기능적으로 동일하다. 
 그러나 와일드카드 기반 메소드 정의가 더 간결하므로 우선시해야한다고 권고하고 있다.
 
 
