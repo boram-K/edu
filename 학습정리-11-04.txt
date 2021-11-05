@@ -136,7 +136,7 @@ public class Practicafter {
 		System.out.println(box1.get() + " & " + box2.get());
 	}
 
-	private static <T> void swapBox(Box7<T> box1, Box7<T> box2) {
+	private static <T> void swapBox(Box7<T> b1, Box7<T> b2) {
 		T tmp =b1.get(); //tmp에 b1값을 저장
 		b1.set(b2.get());//b1에 b2값을 넣기
 		b2.set(tmp);//b2에 tmp에 저장된 b1값을 넣기		
