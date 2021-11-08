@@ -1,0 +1,130 @@
+1. ArrayList 와 LinkedList 의 장단점은?
+-LinkedList :참조과정이 배열에 비해 복잡하지만 저장 공간을 늘리고 삭제하는 과정이 간단하다.
+-ArrayList :배열기반. 저장공간을 늘리고 삭제하는 과정에서 시간이 오래 걸릴 수 있으나 참조시간이 빠르다.
+2. 로또 프로그램을 작성하시오.(Set 으로)
+>
+Set<Integer> lotto = new HashSet<Integer>();
+
+		while (lotto.size() != 6) {
+			int rNum = ((int) (Math.random() * 45 + 1));
+			lotto.add(rNum);
+		}
+
+		for (
+
+		Integer num : lotto) {
+			System.out.print(num + "\t");
+		}
+		System.out.println();
+3. Set에 대하여 설명하시오.
+--Set<E>인터페이스를 구현하는 제네릭클래스들은 다음과 같은 두가지 특징을 가진다.
+1)저장 순서가 유지되지 않는다.
+2)데이터의 중복저장을 허용하지 않는다.
+
+4. 아래의 선택자에 대하여 설명하시오.
+> : 직계 자식만을 선택
++ :인접선택자 A+B이면 A바로 다음에 오는 B만 선택한다.
+~ : 인접선택자보다 조금 더 넓은 범위로  A~B하면 A다음에 오는 모든 B를 선택한다,
+[] : 속성선택자라고 말하며 []안에 있는 태그만 선택한다.
+
+5. 하이 서울 브랜드를 html 로 짜시오.
+-
+   <style>
+        #header,#content,#footer{
+            width: 1000px;
+            margin:0 auto;
+            overflow: hidden;
+           
+        }
+        #header .left,#content .left,#footer .left{/*한칸씩 띄워줄것*/
+            width: 150px;
+            height: 150px;
+            float:left;
+            background-color: skyblue;
+            border: 1px solid palevioletred;
+            
+        }
+        #header .center,#content .center,#footer .center{
+            width: 694px;
+            height: 150px;
+            float: left;
+            background-color: skyblue;
+            border: 1px solid palevioletred;
+           
+        }
+        #header .right,#content .right,#footer .right{
+            width: 150px;
+            height: 150px;
+            float:left;
+            background-color: skyblue;
+            border: 1px solid palevioletred;          
+        }
+        #content .center ul li{
+            list-style: none;
+            float: left;
+            padding: 1px 80px 10px 10px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        #content .iner{
+            clear:both;
+            padding: 20px 20px;
+        }
+        #header .left, #footer .right{
+            border-radius: 30px 0;
+        }
+        #header .right, #footer .left{
+            border-radius: 0 30px;
+        }
+        #header .center{
+            border-radius: 0 0 30px 30px;
+        }
+        #content .center{
+            border-radius: 30px;
+            height: 300px;
+        }
+        #footer .center{
+            border-radius: 30px 30px 0 0 ;
+        }
+        #content .left{
+            border-radius: 0 30px 30px 0;
+           height: 300px;
+        }
+        #content .right{
+            border-radius:30px 0 0 30px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+    </div>
+    <div id="content">
+        <div class="left"></div>
+        <div class="center">
+            <ul>
+                <li>menu1</li>
+                <li>menu2</li>
+                <li>menu3</li>
+                <li>menu4</li>
+            </ul><br/>
+            <div id="iner">
+            <h1>하이서울</h1>
+            <p>어쩌구저쩌구</p>
+        </div>
+        </div>
+        <div class="right"></div>
+    </div>
+    <div id="footer">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+    </div>
+</body>
+6.금요일 다하지 못한 문제가 있으면 문제를 푸시오.
+
+7.개별진척도 못한거 다시 한번 풀어 주세요.
+
