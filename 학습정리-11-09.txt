@@ -1,0 +1,228 @@
+1. 아래의 출력이 나오도록 만드시오.
+
+public class HashPerson {
+	public static void main(String[] args) {
+		HashSet<Person> hSet = new HashSet<Person>();
+		
+		hSet.add(new Person("LEE", 10));
+		hSet.add(new Person("LEE", 10));
+		hSet.add(new Person("PARK", 35));
+		hSet.add(new Person("PARK", 35));
+
+		System.out.println("저장된 데이터 수: " + hSet.size());
+		//System.out.println(hSet);
+	}
+}
+
+/*
+저장된 데이터 수: 2
+[LEE(10세), PARK(35세)]
+*/
+>
+class Person {
+	private String name;
+	private int age;
+
+	public Person(String name, int age) {
+		this.name = name;
+		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return name + "(" + age + "세)";
+	}
+
+	@Override
+	public int hashCode() {
+		return age % 3;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Person p = (Person) obj;
+		if ((this.name.equals(p.name)) && this.age == p.age) {
+			return true;
+		}
+		return false;
+	}
+}
+
+2. 아래와 같이 출력이 나오도록 프로그래밍을 하시오.
+
+        HashSet<Num> set = new HashSet<>();
+        set.add(new Num(7799));
+        set.add(new Num(9955));
+        set.add(new Num(7799));
+
+        System.out.println("인스턴스 수: " + set.size());
+
+        for(Num n : set)
+            System.out.print(n.toString() + '\t');
+
+        System.out.println();
+
+/*
+====출력
+인스턴스 수: 2
+7799	9955
+*/
+
+>
+class Num {
+	private int num;
+
+	public Num(int n) {
+		this.num = n;
+	}
+
+	@Override
+	public String toString() {
+		return String.valueOf(num);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Num n = (Num) obj;
+		if (this.num == n.num)
+			return true;
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return num % 3;
+	}
+
+}
+3.ThreeSet 과 HashSet 의 차이는?
+-TreeSet과 HashSet은 둘 다 Set의 인터페이스를 구현한다. treeSet은 고유한 요소를 오름차순으로 저장하는데 사용되며 HashSet은 hashing매커니즘을 사용하여 고유한 요소를 저장하나 오름차순으로 저장하지 않는다. 이것이 차이점이다.
+
+4.하나의 학생 정보를 나타내는 Student 클래스에는 이름, 학과, 학번, 학점 평균을 저장하는 필드가 있다.
+
+(1) 학생마다 Student 객체를 생성하고 4명의 학생 정보를 ArrayList<Student> 컬렉션에 저장한 후에, ArrayList<Student>의 모든 학생(4명) 정보를 출력하고 학생 이름을 입력받아 해당 학생의 학점 평균을 출력하는 프로그램을 작성하라.
+
+학생 이름, 학과, 학번, 학점평균 입력하세요.
+
+>> 황기태, 모바일, 1, 4.1
+>> 이재문, 안드로이드, 2, 3.9
+>> 김남윤, 웹공학, 3, 3.5
+>> 최찬미, 빅데이터, 4, 4.25
+
+----------------------------------
+
+이름: 황기태
+
+학과: 모바일
+
+학번: 1
+
+학점평균: 4.1
+
+----------------------------------
+
+이름: 이재문
+
+학과: 안드로이드
+
+학번: 2
+
+학점평균: 3.9
+
+----------------------------------
+
+이름: 김남윤
+
+학과: 웹공학
+
+학번: 3
+
+학점평균: 3.5
+
+----------------------------------
+
+이름: 최찬미
+
+학과: 빅데이터
+
+학번: 4
+
+학점평균: 4.25
+
+----------------------------------
+
+학생 이름 >> 최찬미
+
+최찬미, 빅데이터, 4, 4.25
+
+학생 이름 >> 이재문
+
+이재문, 안드로이드, 2, 3.9
+
+학생 이름 >> 그만
+====================================================
+
+>
+class Student {
+	private String name;
+	private String major;
+	private String id;
+	private double grade;
+
+	public void setInfo(ArrayList<String> list) {
+		this.name = list.get(0);
+		this.major = list.get(1);
+		this.id = list.get(2);
+		this.grade = Double.parseDouble(list.get(3));
+	}
+
+	@Override
+	public String toString() {
+
+		return ("이름: " + name + "\n" + "학과: " + major + "\n" + "학번: " + id + "\n" + "학점평균: " + grade);
+	}
+}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		ArrayList<Student> member = new ArrayList<>();
+
+		ArrayList<String> list = new ArrayList<String>();
+
+		while (true) {
+			System.out.println(">>>");
+			String info = sc.nextLine();
+			StringTokenizer st = new StringTokenizer(info, ",");
+
+			if (st.countTokens() != 4) {
+				System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
+				continue;
+			}
+			while (st.hasMoreTokens()) {
+				list.add(st.nextToken());
+			}
+			Student student = new Student();
+			student.setInfo(list);
+			member.add(student);
+			list.clear();
+
+			if (member.size() == 4) {
+				System.out.println("입력이 끝났습니다.");
+				break;
+			}
+		}
+		for (Student student : member) {
+			System.out.println("---------------");
+			System.out.println(student);
+			System.out.println("---------------");
+		}
+	}
+
+
+
+
+
+
+
+
+
