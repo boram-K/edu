@@ -1,0 +1,319 @@
+1. I/O 스트림 이란?
+-컴퓨터한테 입력하는 것은 input이며, 컴퓨터가 어떤 것을 출력하는 것을 output이라고 한다. system.out.println();구문이 바로 output이다. 
+-스트림이란 실제의 입력이나 출력이 표현된 데이터의 이상화된 흐름을 말한다. 즉, 스트림은 운영체제에 의해 생성되는 가상의 연결고리를 의미하며, 중간 매개자 역할을 한다. 기본적으로 바이트단위로 데이터를 전송한다.
+
+2. float 에 대하여 설명하시오.
+-플로트는 해당 내용물이 주변의 다른 내용물들과 자연스럽게 어울리도록 만들어주는 것이다. 플로트 속성을 주게되면 기본적으로 부모영역에서 위로 뜨게 되는 셈이다. 그래서 부모영역의 크기를 따로 지정해주지 않았을 때 플로트 속성을 가진 내용물이 넘치는 것으로 보인다. 이때 부모영역안으로 다시 감싸기 위해서 오버플로우를 써준다.
+
+3.아래의 포지션 4가지에 대하여 설명하시오.
+-static : 정정위치로 기본적인 위치값이다.
+-relative : 지정방식으로 자기자신을 기준으로 설정한다.
+-absolute : 절대위치, relative위치를 기준으로 설정할 수 있다.
+-fixed : 뷰포트를 기준으로 왼쪽 맨위가 기준점이다.
+
+3. 아래를 프로그래밍 하시오.
+좋은 아침 입니다. 를 love.txt 로 저장 -> 해당 내용을 읽어 들여 love2.txt 로 복사
+
+>
+public static void main(String[] args) {
+		
+	try {
+		InputStream is = new FileInputStream("C:\\Users\\kosmo\\Desktop\\김보람\\love.txt");
+		OutputStream os = new FileOutputStream("C:\\Users\\kosmo\\Desktop\\김보람\\love2.txt");
+			
+		byte[] bf =new byte[10];
+			
+		while(true) {
+			int count = is.read(bf);
+			if(count==-1) 
+				break;
+			os.write(bf,0,count);
+		}
+	} catch (Exception e) {
+		// TODO: handle exception
+	} 
+
+	}
+
+
+
+
+4.금일 배운 내용을 바탕으로,  아래를 프로그래밍 하시오.
+
+나라 이름과 인구를 입력하세요.(예: Korea 5000)
+나라 이름, 인구 >> Korea 5000
+나라 이름, 인구 >> USA 1000000
+나라 이름, 인구 >> Swiss 2000
+나라 이름, 인구 >> France 3000
+나라 이름, 인구 >> 그만
+
+인구 검색 >> France
+France의 인구는 3000
+인구 검색 >> 스위스
+스위스 나라는 없습니다.
+인구 검색 >> 그만
+  
+그만"이 입력될 때까지 나라 이름과 인구를 입력 받아 저장하고, 
+다시 나라 이름을 입력받아 인구를 출력하는 프로그램을 해시맵을 이용하여 아래와 같이 작성 하였다.
+
+위의 CountryMap 에서 아래의 함수를 추가하여 테스트 하시오
+
+// country.bin 에 HashMap<String, Integer> map; 안에 저장된 나라와 인구수를 저장
+// I/O Stream 사용 
+public boolean saveFileMap() {
+    
+}
+// I/O Stream 사용 
+// 저장된 country.bin 을 읽어 들여, HashMap<String, Integer> 으로 반환  
+public HashMap<String, Integer> readFileMap() {
+    
+}
+// I/O Stream 사용 
+// 저장된 country.bin 을 읽어 들여, 저장된 나라와 인구수를 출력
+public void printFileMap() {
+		    
+}
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+import javax.lang.model.util.ElementScanner6;
+
+class CountryMap {
+private HashMap<String, Integer> map;
+
+public CountryMap() {
+    map = new HashMap<>();
+}
+
+public HashMap<String, Integer> getMap() {
+
+    try {
+        System.out.println("나라 이름과 인구를 입력하세요.(예: Korea 5000)");
+        Scanner sc = new Scanner(System.in);
+
+        int population = 0;
+        String country = " ";
+
+        while (true) {
+            System.out.print("나라 이름, 인구 >> ");
+            country = sc.next();
+
+            if (country.equals("그만")) // 입력 "그만" 하면 입력 종료
+                break;
+
+            population = sc.nextInt();
+            map.put(country, population);
+        }
+
+
+    } catch (Exception e) {
+        System.out.println("잘못된 입력입니다. 다시 입력하세요.");
+        getMap();
+    }
+
+    return map;
+}
+
+public void setMap(HashMap<String, Integer> map) {
+    this.map = map;
+}
+
+public void search() {
+
+    try {
+        // 키 입력받아서 검색해서 정보 출력하기 그만할때까지
+        // 없으면 없습니다 출력
+        Scanner sc = new Scanner(System.in);
+
+        String key = " ";
+        while (true) {
+            System.out.print("인구 검색 >> ");
+            key = sc.next();
+
+            if (key.equals("그만")) // 입력 "그만" 하면 검색 종료
+                break;
+            else if (!map.containsKey(key)) { // map의 key에 key가 있지 않으면
+                System.out.println(key + " 나라는 없습니다.");
+                continue;
+            }
+            System.out.println(key + " " + map.get(key)); // 키값으로 내용 출력
+        }
+
+    } catch (Exception e) {
+        System.out.println("잘못된 입력입니다. 다시 입력하세요.");
+        getMap();
+    }
+
+}
+}
+
+public class ContryMapTest {
+public static void main(String[] args) {
+CountryMap countryMap = new CountryMap();
+countryMap.getMap();
+
+    System.out.println();
+    countryMap.search();
+
+}
+}
+
+>
+class CountryMap {
+	private HashMap<String, Integer> map;
+
+	public CountryMap() {
+		map = new HashMap<>();
+	}
+
+	public HashMap<String, Integer> getMap() {
+
+		try {
+			System.out.println("나라 이름과 인구를 입력하세요.(예: Korea 5000)");
+			Scanner sc = new Scanner(System.in);
+
+			int population = 0;
+			String country = " ";
+
+			while (true) {
+				System.out.print("나라 이름, 인구 >> ");
+				country = sc.next();
+
+				if (country.equals("그만")) // 입력 "그만" 하면 입력 종료
+					break;
+
+				population = sc.nextInt();
+				map.put(country, population);
+			}
+
+		} catch (Exception e) {
+			System.out.println("잘못된 입력입니다. 다시 입력하세요.");
+			getMap();
+		}
+
+		return map;
+	}
+
+	public void setMap(HashMap<String, Integer> map) {
+		this.map = map;
+	}
+
+	public void search() {
+
+		try {
+			// 키 입력받아서 검색해서 정보 출력하기 그만할때까지
+			// 없으면 없습니다 출력
+			Scanner sc = new Scanner(System.in);
+
+			String key = " ";
+			while (true) {
+				System.out.print("인구 검색 >> ");
+				key = sc.next();
+
+				if (key.equals("그만")) // 입력 "그만" 하면 검색 종료
+					break;
+				else if (!map.containsKey(key)) { // map의 key에 key가 있지 않으면
+					System.out.println(key + " 나라는 없습니다.");
+					continue;
+				}
+				System.out.println(key + " " + map.get(key)); // 키값으로 내용 출력
+			}
+
+		} catch (Exception e) {
+			System.out.println("잘못된 입력입니다. 다시 입력하세요.");
+			getMap();
+		}
+
+	}
+
+	public boolean saveFileMap() {
+		OutputStream os = null;
+		DataOutputStream dos = null;
+		try {
+			os = new FileOutputStream("C:\\Users\\toto9\\OneDrive\\바탕 화면\\연습파일\\temp.bin");
+			dos = new DataOutputStream(os);
+			Set<String> key = map.keySet();
+			Iterator<String> k = key.iterator();
+			while (k.hasNext()) {
+				String cName = k.next();
+				int pNum = map.get(cName);
+				dos.writeUTF(cName);
+				dos.writeInt(pNum);
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			try {
+				if (os != null)
+					os.close();
+				if (dos != null)
+					dos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		return false;
+	}
+
+	public HashMap<String, Integer> readFileMap() {
+		InputStream is = null;
+		DataInputStream dis = null;
+		try {
+			is = new FileInputStream("C:\\\\Users\\\\toto9\\\\OneDrive\\\\바탕 화면\\\\연습파일\\\\temp.bin");
+			dis = new DataInputStream(is);
+			while (dis.available() > 0) {
+				String cName = dis.readUTF();
+				int cNum = dis.readInt();
+				map.put(cName, cNum);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (is != null)
+					is.close();
+				if (dis != null)
+					dis.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		return map;
+	}
+
+	public void printFileMap() {
+		Set<String> key = map.keySet();
+		Iterator<String> k = key.iterator();
+		while (k.hasNext()) {
+			String cName = k.next();
+			int pNum = map.get(cName);
+			System.out.println(cName + " : " + pNum);
+		}
+	}
+
+}
+
+public class Practice_11 {
+
+	public static void main(String[] args) {
+		CountryMap countryMap = new CountryMap();
+		countryMap.getMap();
+
+		countryMap.search();
+
+		countryMap.saveFileMap();
+		countryMap.readFileMap();
+		countryMap.printFileMap();
+
+	}
+
+}
