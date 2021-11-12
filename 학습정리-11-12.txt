@@ -268,7 +268,7 @@ class CountryMap {
 		InputStream is = null;
 		DataInputStream dis = null;
 		try {
-			is = new FileInputStream("C:\\\\Users\\\\toto9\\\\OneDrive\\\\바탕 화면\\\\연습파일\\\\temp.bin");
+			is = new FileInputStream("C:\\Users\\toto9\\OneDrive\\바탕 화면\\연습파일\\temp.bin");
 			dis = new DataInputStream(is);
 			while (dis.available() > 0) {
 				String cName = dis.readUTF();
