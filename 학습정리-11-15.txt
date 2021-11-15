@@ -1,0 +1,122 @@
+1.채팅 프로그램 구현을 위한 기술적 요소 3가지를 나열하고 채팅 프로그래밍을 구현하시오.
+
+-기술적요소 3가지란?
+>Socket, I/O Stream , Thread
+
+>
+//클라이언트쪽
+public class TCPipClient {
+
+	public static void main(String[] args) {
+		String serverIP = "127.0.0.1";// 자기자신ip
+
+		ServerSocket serverSocket = null;
+		Socket socket = null;
+		try {
+			socket = new Socket(serverIP, 7777);// port번호.프로그램번호.암거나네자리수가능
+			System.out.println("서버연결되었습니다.");
+
+			Sender sender = new Sender(socket); // 쓰레드
+			Receiver receiver = new Receiver(socket); // 반드시 쓰레드로
+
+			sender.start();
+			receiver.start();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+}
+//서버쪽
+
+class Receiver extends Thread {
+
+	Socket socket;
+	DataInputStream in;
+	String name;
+
+	Receiver(Socket socket) {
+		this.socket = socket;
+		try {
+			in = new DataInputStream(socket.getInputStream());
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void run() {
+
+		while (in != null) {
+			try {
+				System.out.println(in.readUTF());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+	}
+}
+
+class Sender extends Thread {
+
+	Socket socket;
+	DataOutputStream out;
+	String name;
+
+	Sender(Socket socket) {
+		this.socket = socket;
+		try {
+			out = new DataOutputStream(socket.getOutputStream());
+			name = "[" + socket.getInetAddress() + ":" + socket.getPort() + "]";
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void run() {
+		Scanner sc = new Scanner(System.in);
+
+		while (out != null) {
+			try {
+				out.writeUTF(name + sc.nextLine());
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+	}
+}
+
+public class TCPipServer {
+
+	public static void main(String[] args) {
+
+		ServerSocket serverSocket = null;
+		Socket socket = null;
+		try {
+			serverSocket = new ServerSocket(7777);// port번호.프로그램번호.암거나네자리수가능
+			socket = serverSocket.accept(); // 기다리는 소스
+
+			Sender sender = new Sender(socket); // 쓰레드
+			Receiver receiver = new Receiver(socket); // 반드시 쓰레드로
+
+			sender.start();
+			receiver.start();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+}
+
+
+2.미디어 쿼리란 무엇인가요?
+-@media규칙으로, 미디어 관련 속성을 이용한 표현식으 통해 스타일이 적용되는 범위를 조절할 수 있다. 미디어 쿼리를 사용하면 콘텐츠를 별도로 변경하지 않아도 웹 페이지에 접속하고 있는 기기에 알맞은 형태로 스타일이 조정된다.
+
+3.반응형 웹이란 무엇인가요?
+-홈페이지,웹제작과 관련된 기술로 pc,모바일 등 각각의 기기별로 홈페이지가 최적화된 구조로 변경하여 보여주고, 큰화면을 가진 기기에서는 큰화면에 최적화된 구조로 변경하여 보여지게 해준다. 이처럼 기기의 화면이나 환경에 맞게 자유자재로 변하는 것이 반응형 웹이다.
+
