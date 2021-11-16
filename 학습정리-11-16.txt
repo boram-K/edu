@@ -1,0 +1,155 @@
+1.캡슐화에 대하여 설명하시오.
+- 캡슐화는 소프트웨어의 최종목적이다. 최종 소비자가 최대한 사용하기 쉽게 프로그램(라이크러리,프레임워크)을 만드는 것이다.
+
+
+2.채팅 프로그램을 구현하시오.
+>
+class Receiver extends Thread {
+
+	Socket socket;
+	DataInputStream in; // 문자를 보내야하기 때문에
+	String name;
+
+	Receiver(Socket socket) {
+		this.socket = socket;
+
+		try {
+			in = new DataInputStream(socket.getInputStream());
+		} catch (Exception e) {
+
+		}
+	}
+
+	public void run() {
+
+		while (in != null) { 
+			try {
+				System.out.println(in.readUTF()); //상대방이 넣어준 데이터를 기다리다가 엔터를 체크하게 되면 그 내용을 화면에 뿌린다.
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+
+	}
+}
+class Sender extends Thread {
+
+	Socket socket; // 통신을 위한 모든 것을 가지고 있다.
+	DataOutputStream out; // 보조스트림. 
+	BufferedOutputStream bout;
+	String name;
+
+	Sender(Socket socket) {
+		this.socket = socket;
+		try {
+			out = new DataOutputStream(socket.getOutputStream());
+			name = "[" + socket.getInetAddress() + ":" + socket.getPort() + "]";
+		} catch (Exception e) {
+
+		}
+	}
+
+	public void run() {
+		Scanner scanner = new Scanner(System.in);
+
+		while (out != null) { //끝낼 수 있는 조건이 없다.
+			try {
+			
+				out.writeUTF(name + scanner.nextLine()); //엔터를 치면 제어권이 out에게 넘어감.
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+
+	}
+}
+
+public class TcpIpServer {
+
+	public static void main(String[] args) {
+
+		ServerSocket serverSocket = null;
+		Socket socket = null;
+		try {
+
+			serverSocket = new ServerSocket(7777); // 프로그램번호
+			System.out.println("서버가 준비되었습니다.");
+			
+			socket = serverSocket.accept(); // 기다리는 소스
+			
+			
+			Sender sender = new Sender(socket);
+			Receiver receiver = new Receiver(socket);
+
+			sender.start(); // 쓰레드를 구현하기 때문에 run()이 실행된다. 쓰레드로 안돌리고 바로 run()으로 돌리면 통신이 되지 않는다.
+			receiver.start();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+}
+
+
+//클라이언트쪽
+public class TcpIpClient {
+
+	public static void main(String[] args) {
+		
+		String serverIP = "192.168.0.37"; //접속해야할 IP를 적는다. 클라이언트만 서버IP를 적어두면 된다.
+		
+		Socket socket = null;//기다리는 쪽이 아니기 때문에 
+		
+		try {
+			
+			socket = new Socket(serverIP,7777); //찾으면 객체를 넘겨주고 아니면 에러가 난다.
+			
+			System.out.println("서버에 연결되었습니다.");				
+			
+			Sender   sender   = new Sender(socket);
+	        Receiver receiver = new Receiver(socket);
+
+	        sender.start();
+	        receiver.start();		
+			
+			
+		} catch (Exception e) {
+			
+		}
+	}
+}
+
+
+
+3.JSP 로 헬로 월드를 나오게 하시오.
+
+>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+Hello world
+	
+</body>
+</html>
+
+
+내일 진척도 문제
+
+27번 문제
+
+//ABCD 입력 하게되면 
+//DCBA 출력
+
+60번문제. JSP 로 헬로 월드를 나오게 하시오.
+
+59번 문제
+채팅 프로그래밍을 구현하시오
+
+
+
