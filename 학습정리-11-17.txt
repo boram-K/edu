@@ -1,0 +1,111 @@
+1. 아래를 프로그래밍 하시오.
+-JSP 프로젝트 생성
+-/hello 로 치고 들어오면 Hello 를 출력하는 HelloWorld.java 서블릿 파일 작성
+-/lotto 로 치고 들어오면 로또번호 6개를  출력하는 LottoNum.java 서블릿 파일 작성
+-/gugu3 으로 치고 들어오면 구구단 3단을 출력하는 GuGu3Dan.java 서블릿 파일 작성
+-/gugudan 으로 치고 들어오면 구구단(1단~9단)을 출력하는 GuGuDan.java 서블릿 파일 작성
+
+>
+-HelloWorld.java-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		System.out.println("HelloWorld");
+
+		response.setContentType("text/html");
+		PrintWriter writer = response.getWriter(); // 웹브라우저에 출력하기 위한 스트림
+
+		writer.println("<html>"); // html
+		writer.println("<head>");
+		writer.println("</head>");
+		writer.println("<body>");
+		writer.println("<h1>Hello</h1>");
+		writer.println("</body>");
+		writer.println("</html>");
+
+		writer.close();
+	}
+-LottoNum.java-
+response.setContentType("text/html");
+		PrintWriter writer = response.getWriter(); // 웹브라우저에 출력하기 위한 스트림
+
+		writer.println("<html>"); // html
+		writer.println("<head>");
+		writer.println("</head>");
+		writer.println("<body>");
+		Set<Integer> lotto = new HashSet<>();
+		while(lotto.size()<6) {
+			lotto.add((int)(Math.random()*45+1));
+		}
+		writer.println("<h1>Lotto number is~</h1>");
+		writer.println(lotto);
+		writer.println("</body>");
+		writer.println("</html>");
+
+		writer.close();
+	}
+GuGu3Dan.java
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter writer = response.getWriter(); // 웹브라우저에 출력하기 위한 스트림
+
+		writer.println("<html>"); // html
+		writer.println("<head>");
+		writer.println("</head>");
+		writer.println("<body>");
+		Set<String> gugu = new TreeSet<String>();
+		for(int i=1;i<10;i++) {
+			gugu.add("3"+"X"+i+"="+(3*i));
+		}
+		writer.println(gugu.toString()+"\n");				
+		writer.println("</body>");
+		writer.println("</html>");
+
+		writer.close();
+	}
+
+GuGuDan.java
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter writer = response.getWriter(); // 웹브라우저에 출력하기 위한 스트림
+
+		writer.println("<html>"); // html
+		writer.println("<head>");
+		writer.println("</head>");
+		writer.println("<body>");
+		Set<String> gugudan = new TreeSet<String>();
+		for(int i=1;i<10;i++) {
+			for(int j=2;j<10;j++)
+			gugudan.add(j+"X"+i+"="+(j*i));
+		}	
+		writer.println(gugudan);
+		writer.println("</body>");
+		writer.println("</html>");
+
+		writer.close();
+	}
+
+
+2.프로토콜이란 무엇이며, 프로토콜의 종류는?
+-프로토콜이란 클라이언트와 서버간의 통신 규약이다.
+프로토콜의 종류로는 TCP/IP,http,ftp등이 있다.
+
+3.*.jsp 가 컴파일 되는 과정을 설명하시오.
+-jsp는 서버언어라고 칭해지는데, 그 이유는 jsp로 작성된 스키립트가 실행시에 자동으로 서블릿 코드로 변환되어 컴파일되고 실행되기 때문이다.  
+jsp.file--->jsp_java.file-->class.file 순으로 컴파일한다.
+
+4. 아래를 프로그래밍 하시오.
+
+아래의 주소를 접속시 아래가 웹브라우져에 나타나도록 하시오.
+http://localhost:8282/프로젝트명/programmer.jsp
+
+I am a programmer (웹브라우져 출력)
+
+>
+먼저 프로젝트안에 main파일에 있는 wepapp에 jsp파일을 만들고 body태그 안에 I am a programmer를 써넣고 run on server로 다시 실행해주면 출력되는 것을 확인할 수 있다.
+
+5. HttpServlet에 대하여 설명하시오.
+-HttpServlet은 사용자가 정의하던 service()를 담은 상속클래스이다. HttpServlet클래스에서 사용자의 요청을 처리하는 doGet(),doPost()메소드 등은 httpServletRequest와 httpServletRespnse객체를 매개변수로 가지고 있다. 이 매개변수는 서블릿과 클라이언트 사이를 연결하는 역할을 한다.
+
+6.web.xml 에 대하여 설명하시오.
+-웹 어플리케이션의 환경파일로서 xml형식의 파일이다. 모든 웹 어플리케이션은 반드시 하나의 web.xml파일을 가져야하며 WEB_INF폴더아래 위치해 있다. web.xml파일의 설정들은 웹 어플리케이션 시작시 메모리에 로딩된다. 만약 수정을 할 경우 재시작이 필요하다.
