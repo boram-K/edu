@@ -1,0 +1,127 @@
+1. 아래를 프로그래밍 하시오.
+-JSP 프로젝트 생성
+-/gugudan - input 박스에 단을 입력받음 -해당 구구단 출력 
+-/rectangle - input 박스에 반지름 입력 -해당 넓이 출력
+-/triangle - input 박스 두개에 가로 세로 입력 - 해당 넓이 출력
+-/gugu - 구구단을 좀더 예쁘게 출력(테이블 좀 입혀 주세요.^^;) 
+
+전체 reset 버튼도 달아 줄것
+
+>
+수를 입력받을 html파일
+<body>
+	<h1>GUGUDAN</h1>
+	<form action="gugudan" method="post">
+	몇 단:  <input type="text" name="dan" size="10"><br/>
+	<input type="submit" value="전송">
+		<input type="reset" value="reset">
+	</form>
+	<h1>rectangle</h1>
+	<form action="rec" method="post">
+	가로:  <input type="text" name="w" size="10"><br/>
+	세로: <input type="text" name="h" size="10"><br/>
+	<input type="submit" value="전송">
+		<input type="reset" value="reset">
+	</form>
+	<h1>triangle</h1>
+	<form action="triangle" method="post">
+	가로:  <input type="text" name="w" size="10"><br/>
+	세로: <input type="text" name="h" size="10"><br/>
+	<input type="submit" value="전송">
+		<input type="reset" value="reset">
+	</form>
+	<h1>GUGUDAN</h1>
+	<form action="gugu" method="post">
+	<input type="submit" value="구구단">
+	</form>
+	
+</body>
+
+>나타낼 페이지
+구구단
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String dan = request.getParameter("dan");
+		Integer d = Integer.valueOf(dan);
+		out.write(dan+"단"+"<br/>");
+		for(int i=1;i<10;i++) {
+			out.write(dan+"x"+i+"="+(d*i)+"<br/>");
+		}
+		
+
+rectangle
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		String dan = request.getParameter("dan");
+		Integer d = Integer.valueOf(dan);
+		out.write(dan+"단"+"<br/>");
+		for(int i=1;i<10;i++) {
+			out.write(dan+"x"+i+"="+(d*i)+"<br/>");
+		}
+		
+triagle
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		String w = request.getParameter("w");
+		String h = request.getParameter("h");
+		PrintWriter out = response.getWriter();
+		out.println("가로 : "+w+"<br/>");
+		out.println("세로 : "+h +"<br/>");
+		
+		Integer whidth = Integer.valueOf(w);
+		Integer height = Integer.valueOf(h);
+
+		out.println("넓이는 " + (whidth*height)+"입니다.");
+	}
+
+구구단이쁘게뽑아보기
+
+
+
+2. get 방식 과 post 방식에 대하여 설명하시오.
+-get방식과 post방식은 데이터 전송방식의 두 가지이다.
+-get방식은 클라이언트에서 서버로 어떠한 리소스로부터 정보를 요청하기 위해 사용되는 메소드이다.html내 폼태그의 메소드속성이 get일 경우 호출된다. 
+즉 어떤 정보를 전송할 때 URL주소를 통해 넘겨주는 것을 GET방식이라고 한다. 그러나 URL정보에 넘겨주는 정보가 눈에 보이기 때문에 보안에 약하다.
+
+-post방식은 클라이언트에서 서버로 리소스를 생성하거나 업데이트를 하기위해 데이터를 보낼 때 사용되는 메소드이다. html내 폼태그의 메소드속성이 post일 경우에 호출되며 header를 이용해 정보가 전송되어 보안에 강하다.
+
+3. 컨텍스트 패스(Context Path)란 무엇인가?
+-Was(web application server)에서 웹어플리케이션을 구분하기 위한 Path이다.
+해당 어플리케이션의 이름이라고 생각하면 편하다.
+
+
+4. 아래의 객체에 대하여 설명하시오.
+HttpServletRequest request, HttpServletResponse response)
+
+-HttpServletRequest (요청처리객체) :Http프로토콜의 request정보를 서블릿에게 전달하기 위한 목적으로 사용된다. Header정보, Parameter, Cookie, URI, URL 등의 정보를 읽어들이는 메소드를 가진 클래스이다. Body의 Stream을 읽어들이는 메소드를 가지고 있음
+
+-HttpServletResponse(응답처리객체): Servlet은 HttpServletResponse객체에 Content Type, 응답코드, 응답 메시지등을 담아서 전송한다.
+
+  	 (request)
+웹브라우저---------------->서블릿
+	<----------------
+	   (response)
+
+5. 아래의 submit 에 대하여 설명하시오.
+<button type="submit" value="전송">
+
+-submit은 form태그에 사용되어 form에 입력한 데이터를 submit버튼을 클릭하여 데이터를 전송하면, 해당서블릿에서는 HttpServletRequest객체를 이용하여 parameter값을 얻을 수 있게 된다.
+
+================================
+내일 진척도
+
+int 값을 하나 입력 받아
+원의 넓이를 구하는 프로그램을 짜시오.
+단 Circle 은 객체로 만들것.
+
+출력 예)
+반지름을 입력 하세요.
+100
+314.78678 입니다.
+========================================
+
+-/rectangle - input 박스에 가로 세로 입력 -해당 넓이 출력
+
+
