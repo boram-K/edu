@@ -1,0 +1,98 @@
+1. 아래를 프로그래밍 하시오.
+/context명/gugudan.jsp - 구구단을 찍으시오(테이블로)
+>
+<div class = "container">
+	<h3>구구단을 뽑아봅시다.</h3>
+	<table class = "table table-bordered table-danger">
+	<thead class = "thead-dark">
+		<tr>
+		<% for(int i=2;i<=9;i++){ %>
+		<th><%= i+"단" %></th>
+		<%} %>
+		</tr>
+		</thead>
+	<tr>
+	<% for(int i=1;i<=9;i++) {%> <!-- 세로몇줄 -->
+	
+	<% for(int j=2;j<=9;j++){ %> <!-- 가로 -->
+	<td style="border:1"><%= j+"*"+i+"="+(j*i) %></td>
+	<% }%>
+	</tr>
+	<%}%>
+	</table>
+</div>
+
+/context명/five_star.jsp - 아래의 별을 찍으시오
+    *
+    **
+    ***
+    ****
+    *****
+
+>
+<h3>별찍기 타워</h3>
+<%
+for(int i=1;i<=5;i++){
+	for(int j=1;j<=i;j++){
+		out.println("*");
+	}
+	out.println("<br>");
+}
+%>
+
+/context명/five_star_inverse.jsp - 아래의 별을 찍으시오
+
+
+    *****
+    ****
+    ***
+    **
+    *
+>
+<h3>별 거꾸로 찍기</h3>
+<%
+for(int i=1;i<=5;i++){
+	for(int j=5;j>=i;j--){
+		out.println("*");
+	}
+	out.println("<br>");
+}
+%>
+
+
+2. 아래에 대하여  예를 들어 설명하시오.
+
+-지시자 : JSP페이지의 전체적인 속성을 지정할 때 사용한다. 종류로는 page,include,taglib이 있으며 
+page의 경우 jsp파일 상단에 위치한<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+이며, 해당 페이지의 전체적인 속성을 줄 때 사용한다.
+
+-스크립틀릿: JSP페이지에서 자바언어를 사용하기 위한 요소중 가장 많이 사용되는 요소이다. <% 자바코드기술 %>이런 식으로 쓰인다.
+
+-expression: 값을 표현하는데 사용되는 스크립트 언어로 JSP의 기본문법을 보완하는 역할을 한다.
+
+-include :  include같은 경우 <%@ include file ="파일이름.jsp "%>를 통해 별도의 페이지에 있는 코드를 통째로 가져와 웹부라우저에 나타내주는 느낌이다. 그러나 잘 안쓰인다.
+
+
+
+
+
+3. 부트스트랩 Pricing 을 완성하시오.
+
+===============================================================
+
+화요일 진척도 
+
+/context명/gugudan.jsp - 구구단을 찍으시오(테이블로)
+
+======================================================
+23번 문제
+
+Money money = new Money(-126000);
+money.show();
+
+출력 
+잘못된 입력입니다.
+오만원 0장....
+오만원 0장....
+등등등....
