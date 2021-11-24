@@ -1,0 +1,248 @@
+1. 부트스트랩 앨범을 완성을 하시오.
+>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <!-- Brand -->
+        <a href="#" class="navbar-brand d-flex align-items-center">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                aria-hidden="true"
+                class="mr-2"
+                viewbox="0 0 24 24"
+                focusable="false"><path
+                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <strong>Album</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </div>
+      </nav>
+      <div class="jumbotron bg-white text-center mt-5 mb-5">
+        <h1 class="display-4 font-weight-light">Album example</h1>
+        <p class="font-weight-light text-muted" style="font-size: 1.4em;">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <button type="button" class="btn btn-primary">Main call to action</button>
+        <button type="button" class="btn btn-secondary">Secondary action</button>
+      </div>
+      
+      <div class="pt-2" style="background-color: #f1f1f1;">
+
+      <div class="container mb-3 mt-5">
+      <div class="card-deck ">
+        <div class="card">
+            <img src="3.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button type="button" class="btn btn-outline-secondary btn-sm">View</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button> 
+            <small class="text-muted float-right">9 mins</small>
+        </div>
+        </div>
+        <div class="card">
+            <img src="3.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button type="button" class="btn btn-outline-secondary btn-sm">View</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button> 
+            <small class="text-muted float-right">9 mins</small>
+        </div>
+        </div>
+        <div class="card">
+            <img src="3.jpg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <button type="button" class="btn btn-outline-secondary btn-sm">View</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button> 
+            <small class="text-muted float-right">9 mins</small>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="container mb-3">
+        <div class="card-deck ">
+          <div class="card">
+              <img src="3.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <button type="button" class="btn btn-outline-secondary btn-sm">View</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button> 
+              <small class="text-muted float-right">9 mins</small>
+          </div>
+          </div>
+          <div class="card">
+              <img src="3.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <button type="button" class="btn btn-outline-secondary btn-sm">View</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button> 
+              <small class="text-muted float-right">9 mins</small>
+          </div>
+          </div>
+          <div class="card">
+              <img src="3.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <button type="button" class="btn btn-outline-secondary btn-sm">View</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button> 
+              <small class="text-muted float-right">9 mins</small>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="card-deck ">
+          <div class="card">
+              <img src="3.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <button type="button" class="btn btn-outline-secondary btn-sm">View</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button> 
+              <small class="text-muted float-right">9 mins</small>
+          </div>
+          </div>
+          <div class="card">
+              <img src="3.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <button type="button" class="btn btn-outline-secondary btn-sm">View</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button> 
+              <small class="text-muted float-right">9 mins</small>
+          </div>
+          </div>
+          <div class="card">
+              <img src="3.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <p class="card-text text-center">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <button type="button" class="btn btn-outline-secondary btn-sm">View</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm">Edit</button> 
+              <small class="text-muted float-right">9 mins</small>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+<p class="mt-2">Album example is © Bootstrap, but please download and customize it for yourself!</p>
+<a href="#" style="float:right;">Back to top</a>
+<p>New to Bootstrap?<a href="#">Visit the homepage</a>or read our<a href="#">getting started guide.</a></p>
+
+    </div>
+</body>
+</html>
+
+2.쿠키란 무엇인가요?
+>쿠키는 서버를 대신해 웹브라우저에 저장하고 요청할 때, 그 정보를 서버에 보내 사용자를 식별할 수 있다. 4kb 300개까지만 저장 가능하며, 보안에 좋지 않다. 쿠키를 탈취하면 해킹을 할 수 있다.
+
+3.세션이란 무엇인가요? 
+>쿠키와 마찬가지로 서버와의 관계를 유지하기 위한 수단이다. 단, 쿠키와 다르게 클라이언트의 특정 위치에 저장되는 것이 아닌, 서버상에 객체로 존재한다. 따라서, 쿠키와는 다르게 서버에서만 접근이 가능하여 보안에 좋고, 저장할 수 있는 데이터에 한계가 없다.
+>대표적으로 쇼핑몰 사이트에서 볼 수 있는 장바구니가 세션을 사용할 수 있는 예라고 할 수 있다.
+
+
+4. 아래의 cookie_set.jsp 파일에 대하여
+cookie get 를 클릭하면 모든 쿠키 값을 출력하는 cookie_get.jsp를 만드시오.
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+	Cookie cookie = new Cookie("CookieN","CookieV"); //쿠키객체생성
+	cookie.setMaxAge(60*60); //쿠키 시간 설정
+	
+	response.addCookie(cookie);
+%>
+
+	<a href="cookie_get.jsp">cookie get</a>
+
+</body>
+</html>
+
+cookie_get.jsp>
+<body>
+<%
+	//확인하기 위한 코드
+	
+	Cookie[] cookies = request.getCookies();
+
+	for(int i=0;i<cookies.length;i++){
+		String str = cookies[i].getName(); //쿠키의 키네임
+		System.out.println(str);
+		
+		if(str.equals("CookieN")){
+			out.println("cookies["+i+"] name : "+ cookies[i].getName()+"<br>");
+			out.println("cookies["+i+"] value : "+ cookies[i].getValue()+"<br>");
+			out.println("==========================<br/>");
+		}
+	}
+	
+%>
+</body>
+
+
+
+5.아래의 session_set.jsp 파일에 대하여
+session get 를 클릭하면 모든 세션 값을 출력하는 session_get.jsp를 만드시오.
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+	session.setAttribute("sessionName", "sessionValue");
+	session.setAttribute("myNum", 12345);
+%>
+
+	<a href="session_get.jsp">cookie get</a>
+</body>
+</html>
+
+session_get.jsp>
+String name;
+	String value;
+	
+	Enumeration enumeration = session.getAttributeNames();
+	
+	while(enumeration.hasMoreElements()){
+		name = enumeration.nextElement().toString();
+		value = session.getAttribute(name).toString();
+		
+		out.println("name : " + name + "<br>");
+		out.println("value : " + value + "<br>");	
+
+
+6. sessin id 란?
+>웹브라우저가 쿠키로 심어넣는 것이다. 그리고 세션메모리에도 하나 올려놓는다. 다시 접속할 때, 자기가 가진 세션 아이디와 쿠키를 비교해서 아직 메모리에 남아있으면 로그인 상태를 유지한다. 이게 쿠키와 세션의 활용의 대표적인 예이다. 다른 웹브라우저로 접속했을 때, 로그인이 유지되지 않는 이유는 웹브라우저마다 다른 쿠키영역이 있기 때문이다. 그래서 또다른 세션아이디가 심어지며, 별개의 사용자로 취급되어 로그인 유지가 되지 않는 것이다.
+
+
+
+
+
+
