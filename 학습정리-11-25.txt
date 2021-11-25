@@ -1,0 +1,101 @@
+1. 예외 페이지를 설정 하는 방법 2가지는?
+>
+1.페이지 상단에 <%@page isErrorPage="true" %> 이 코드를 먼저 집어넣는다. 
+2.<%@ page errorPage="에러시내보낼 페이지이름.jsp" %> 를 넣어준다.
+3.에러시 내보낼 페이지를 만들어 둔다.
+3.<% response.setStatus(200); %> 에러처리 페이지임으로 설정해준다
+
+>web.xml파일에 직접 코드를 삽입한다.
+<error-page>
+
+        <error-code>404</error-code>
+
+            <location>/404exception.jsp</location>
+
+    </error-page>
+<error-page>
+
+        <error-code>500</error-code>
+
+            <location>/500exception.jsp</location>
+
+    </error-page>
+위 코드를 삽입 후, 코드에 맞는 에러페이지를 만들어 둔다.
+
+2. 아래를 참고 하여, 이름,국,영,수 데이터 멤버로 갖는 클래스(자바 빈)를 만든후 
+아래와 같이 액션 태그를 활용하여 총점고 평균이 나오도록 하시오.
+
+=========================================================
+
+	Student student = new edu.kosmo.ex.Student();
+	<jsp:useBean id="student" class="edu.kosmo.ex.Student"></jsp:useBean>
+
+	<jsp:setProperty name="student" property="name" value="홍길동" />
+              ~~~~~~~~~~~
+             ~~~~~~~~~~~~~
+	이름 : <jsp:getProperty ~~~ /><br />
+	국어 : <jsp:getProperty ~~~ /><br />
+	영어 : <jsp:getProperty ~~~ /><br />
+	수학 : <jsp:getProperty ~~~ /><br />
+	총점 : <jsp:getProperty ~~~ /><br />
+	평균 : <jsp:getProperty ~~~ /><br />
+>
+<body>
+	<!-- Student s = new Student(); -->
+	<jsp:useBean id="Student" class="edu.kosmo.ex.Student"></jsp:useBean> <!-- 닫는태그있어야함 -->
+	 <!-- s.setName(13); -->
+	<jsp:setProperty  name="Student" property="name" value="uza"/>
+	<jsp:setProperty  name="Student" property="kor" value="80"/>
+	<jsp:setProperty  name="Student" property="eng" value="90"/>
+	<jsp:setProperty  name="Student" property="math" value="78"/>
+
+	
+	
+	
+	<!-- s.getName(); -->
+	이름 : <jsp:getProperty property="name" name="Student"/><br>
+	국어 : <jsp:getProperty property="kor" name="Student"/><br>
+	영어 : <jsp:getProperty property="eng" name="Student"/><br>
+	수학 : <jsp:getProperty property="math" name="Student"/><br>
+	총점 : <jsp:getProperty property="sum" name="Student"/><br>
+	평균 : <jsp:getProperty property="avg" name="Student"/><br>
+	
+</body>
+</html>
+
+
+3.flex 에 대하여 설명하시오.
+>flex는 레이아웃 배치 전용 기능으로 고안되었다. float나 inline-block등을 이용한 기본 방식보다 훨씬 편리한 기능들이 많다. flex 레이아웃을 만들기 위한 기본적인 html 요소는 부모요소라 불리는 켄테이너와 자식 요소로 불리는 아이템이 있다. 컨테이너가 flex의 영향을 받는 전체적인 공간이라면, 설정된 속성에 따라 각각의 아이템들이 어떤 형태로 배치되는 것이라고 생각하면 조금 더 이해하는 데 수월하다.
+또한 flex의 속성들은 컨테이너에 적용하는 속성들과 아이템에 적용하는 속성들로 나뉜다.
+
+>컨테이너 요소에 적용하는 속성들 
+-display: flex; :Flex 아이템들은 가로 방향으로 배치되고, inline요소처럼 자신이 가진 내용물의 width 만큼만 차지하게 된다. . height는 컨테이너의 높이만큼 늘어난다.
+-flex-direction:아이템들이 배치되는 방향을 결정하는 속성이다.
+-row-reverse : 아이템들이 역순으로 가로배치된다.
+-column : 아이템들이 세로방향으로 배치된다.
+-column-reverse : 아이템들이 역순으로 세로 배치된다.
+-flex-wrap : 컨테이너가 더 이상 한줄에 담을 공간이 없을 때 줄바꿈을 결정하는 속성이다.
+-nowrap : 기본값으로 줄바꿈을 하지 않는다.
+-justify-content : 아이템들을 메인축으로 정렬한다.
+-align-items : 아이템들을 수직축으로 정렬한다.
+
+>아이템에 적용하는 속성들
+-flex-basis : 아이템의 기본크기를 설정한다.
+-flex-grow : 아이템이 기본크기값보다 커질 수 있는지 결정한다.
+-flex-shrink : grow와 쌍을 이루는 속성으로, 아이템이 기본값보다 작아질 수 있는지를 결정한다. 기본값은 1이다.
+=======================================================
+
+개별 진척도
+
+위의 문제 2번(개별진척도 파일 67번) 
+
+
+====================================
+19번 문제
+원의 넓이는 구하는 프로그램을 아래와 같이 작성하시오.
+  - 원클래스를 만들것
+    - 변수 radius
+    - 변수 radius에 대한 setter getter 함수 만들것
+    - getArea 함수
+  
+  -메인 메소드를 가진 다른 클래스(AreaTest)에서 원 객체를 생성할것
