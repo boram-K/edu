@@ -1,0 +1,207 @@
+1.아래를 프로그래밍 하시오.
+-DTO  = dept Dto 클래스 
+-DAO  = dept Dao 클래스
+dept_select.jsp ->dept 테이블에 있는 내용을 전부 유저에게 출력하여 
+보여주는 페이지
+
+DeptDao>
+package edu.kosmo.ex.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import edu.kosmo.ex.dto.DeptDto;
+import edu.kosmo.ex.dto.EmpDto;
+
+//내가 DB에 접속해서 필요한 데이터를 가져오기 위한 것. 
+public class DeptDao {//data acess Object
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String uid = "scott";
+	private String upw = "tiger";
+
+	public DeptDao() {
+		try {
+			Class.forName(driver);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	//쿼리를 실행하기 위한 함수 ,외우기. 
+	public ArrayList<DeptDto> empSelect(){ //DB를 가지고 올때 컬렉션프레임을 사용
+		
+		ArrayList<DeptDto> dtos = new ArrayList<DeptDto>();
+		
+		Connection con =null; 
+		Statement stm = null; //sql들어간 애로 데려올 것
+		ResultSet rs = null;
+		
+		try {
+			String query = "SELECT * FROM dept";
+			con = DriverManager.getConnection(url, uid, upw);
+			stm = con.createStatement();
+			rs = stm.executeQuery(query);
+			
+			while (rs.next()) {
+				String loc = rs.getString("loc");
+				String danme = rs.getString("dname");
+				int deptno = rs.getInt("deptno");
+				
+				DeptDto dto = new DeptDto(deptno, danme, loc);
+				
+				dtos.add(dto); //arraylist에 목록이 들어감
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {//순서가 있다. 가장 마지막에 객체생성된 순서대로...
+				if(rs !=null) rs.close();
+				if(stm !=null) stm.close();
+				if(con !=null) con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return dtos;
+	
+	}
+}
+
+DeptDto>
+package edu.kosmo.ex.dto;
+
+
+//DB에 있는 정보를 가져오기 위해서 한개,한개 객체로 만든것.
+public class DeptDto { //data trans for Object 요즘은 VPO로 많이 사용
+	private int deptno;
+	private String dname;
+	private String loc;
+	
+	public DeptDto() {}
+	
+	public DeptDto(int deptno, String dname, String loc) {
+
+		this.deptno = deptno;
+		this.dname = dname;
+		this.loc = loc;
+	}
+	public int getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
+	}
+	public String getDname() {
+		return dname;
+	}
+	public void setDname(String dname) {
+		this.dname = dname;
+	}
+	public String getLoc() {
+		return loc;
+	}
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
+	
+}
+dept_select.jsp>
+<%@page import="edu.kosmo.ex.dto.DeptDto"%>
+<%@page import="edu.kosmo.ex.dao.DeptDao"%>
+
+<%@page import="java.util.ArrayList"%>
+
+<%@page import="javax.servlet.jsp.tagext.TryCatchFinally"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<% //jsp에서는 임포트시 주의!!!
+	DeptDao deptDao = new DeptDao();
+	
+	ArrayList<DeptDto> dtos = deptDao.empSelect();
+	
+	for(int i = 0; i < dtos.size();i++){
+		DeptDto dto = dtos.get(i);
+		
+		out.print("<h3>번호: "+ dto.getDeptno() +
+				" 분야: "+ dto.getDname() + " 지역: "+ dto.getLoc()+"</h3>");
+	}	
+	%>
+</body>
+</html>
+
+
+2. 아래의 개념을 설명하시오.
+-DAO
+>데이터베이스에 접속해 데이터 추가, 삭제, 수정등의 작업을 하는 클래스로, 일반적인 JSP혹은 Servlet 페이지 내에 로직을 함께 기술할 수도 있지만, 유지보수 및 코드의 모듈화를 위해 별도의 DAO클래스를 만들어서 사용한다.
+
+-DTO
+>DAO클래스를 이용하여 데이터베이스에서 데이터를 관리할 때, 데이터를 일반적인 변수에 할당하여 작업할 수도 있지만, 해당 데이터의 클래스를 만들어서 사용한다.
+
+-커넥션 풀
+>데이터베이스와 연결된 커넥션을 미리 만들어서 풀(pool)속에 저장해주고 있다가, 필요할 때 커넥션을 풀에서 쓰고 다시 풀에 반환하는 기법을 말한다. 
+>웹 컨테이너가 실행되면 Connection객체를 미리 pool속에 생성해둔다-> DB와 연결된 Connection을 미리 생성해서 pool속에 저장해두고 있다가 필요할 때 가져다 쓰고 반환한다.-> 미리 생성해두기 대문에 데이터베이스에 부하를 줄이고 유동적으로 연결을 관리할 수 있다.
+
+3. 아래의 3종 세트를 설명하시오.
+-Connetion
+> DB와 연결하기 위해 사용하는 객체이다. 파라미터는 데이터의 URL,접속ID,패스워드,포트번호이다. DriverManager의 gerconnection()메소드를 호출하여 생성할 수 있다.
+
+-Statement
+>Connection 객체로부터 인스턴스화하여 만들어내며 DB에 sql을 보내기 위한 준비작업과 실제 sql을 실행하여 결과값을 주는 API를 제공한다.
+>execute(),executeQuery(),executeUpdate() 이 메소드들이 statement의 주요메소드들이다.
+
+-Resultset
+>executeQuery()메소드를 사용하며, 실행결과로 java.sql.Resultset형으로 리턴한다.
+>next(),get~(),clode() 등등의 메소드들이 있다.
+
+4. Statement객체에 두함수의 용도는.
+-executeQuery()
+>SELECT문을 DB로 넘겨 실행시킬 때 사용한다. 이 메소드는 Resultset객체를 리턴하며, query할 SELECT문장을 String 형태로 받는다.
+
+-executeUpdate()
+>DB를 갱신할 때 사용하는 메소드이다.
+
+5. SQL  정리
+-사원들의 입사일에서 입사 년도와 입사 달을 출력하는 쿼리문
+>
+SELECT
+    ENAME, 19|| SUBSTR(HIREDATE,1,2)년도, SUBSTR(HIREDATE,4,2)달
+FROM emp;
+
+-9월에 입사한 사원을 출력하는 쿼리문
+>
+SELECT
+    ENAME, HIREDATE
+FROM EMP WHERE SUBSTR(HIREDATE,4,2)=09;
+
+-현재 날짜와 시간을 출력하는 쿼리문
+>
+SELECT
+    TO_CHAR(SYSDATE,'YYYY-MM-DD, HH24:MI:SS')
+FROM DUAL;
+
+-34.5678을 반올림하는 쿼리문
+
+>
+SELECT
+    34.5678, ROUND(34.5678)
+FROM DUAL;
+
+
+
+
+
+
+
+
