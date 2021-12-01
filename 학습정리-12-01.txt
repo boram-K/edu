@@ -1,0 +1,102 @@
+
+1. 아래의 문제를 푸시오.
+
+아래의 문제를 푸시오.
+-DTO  = emp Dto 클래스 
+-DAO  =  emp Dao 클래스
+
+emp_select.jsp
+ -> emp 테이블에 있는 내용을(ArrayList 객체)를 세션에 저장
+ ->emp 테이블에 있는 내용을 전부 유저에게 출력하여 보여주는 페이지(해당 세션에서 꺼내어)
+
+emp_select2.jsp
+
+ ->emp_select.jsp 에서 세션에 저장한 ArrayList 객체를 이용하여 
+ ->emp 테이블에 있는 내용을 전부  출력
+
+emp_select.jsp>
+<body>
+	<%
+	EmpDao emp = new EmpDao();
+	
+	ArrayList<EmpDto> etos = emp.empSelect();
+	
+	
+	session.setAttribute("empinfo", etos);
+	
+	for(int i=0;i<etos.size();i++){
+		EmpDto eto = etos.get(i);
+		
+		out.println("사원번호 :"+eto.getEmpno()+" 이름 :"+eto.getEname()
+		+" 직업: "+eto.getJob()+" MGR : "+eto.getMgr()+" 입사일 :"+eto.getHiredate()
+		+" 월급 : "+eto.getSal()+" 보너스 :"+eto.getComm()+" 부서번호 :"+eto.getDeptno()+"<br>");
+		
+	%>	
+
+	<%  }%>
+
+	
+</body>
+ 
+emp_select2>
+<body>
+	<%
+	ArrayList<EmpDto> empinfo = (ArrayList<EmpDto>)session.getAttribute("empinfo");
+	
+	for(int i=0;i<empinfo.size();i++){
+	%> 
+	사원번호 : <%= empinfo.get(i).getEmpno() %><br>
+	이름 : <%= empinfo.get(i).getEname() %> <br>
+	직업 : <%= empinfo.get(i).getJob() %> <br>
+	MGR : <%= empinfo.get(i).getMgr() %> <br>
+	입사일 : <%= empinfo.get(i).getHiredate() %> <br>
+	급여 : <%= empinfo.get(i).getSal() %><br>
+	보너스: <%= empinfo.get(i).getComm() %> <br>
+	부서번호 : <%= empinfo.get(i).getDeptno() %><br>
+	<br>
+	<%
+	}
+	%>
+	
+</body>
+
+
+
+2. 아래의 개념을 설명하시오.
+-DBCP
+>DB Connection Pool의 약자로, 시스템에 접근하는 클라이언트가 많아 서버에 부하가 생길때, 시스템 최적화를 위해 
+커넥션풀기법을 사용한다.
+>동접자가 많다고 서버가 다운되는 것이 아닌, 서버와 DB가 연결된 라인에 부하가 걸리는 것이다. 그래서 그것을 최적화 하기위해 한번에 접속할 수 있는 커넥션수를 미리 생성해두어 부하를 막는 것이다.
+
+-EL(Expression langu
+>액션태그, 또는 표현식을 대신해서 값을 표현하는 언어이다. ${ } 형식으로 쓴다.
+
+5. SQL  정리
+- 가장 높은 급여와 가장 낮은 급여를 구하는 쿼리문
+>SELECT
+    MAX(sal) "MAXIMUM" 
+FROM emp;
+
+- '20,000'과 '10,000'의 차이를 알아보기 위해서 빼기(-)연산을 구하는 쿼리문
+>SELECT
+    TO_NUMBER('20,000', '99,999') - TO_NUMBER('10,000', '99,999')   
+FROM dual;
+
+- 각 사원의 연봉 계산을 하는 쿼리문
+>SELECT
+   ename, SUM(sal)
+FROM emp;
+
+- 중복 제거를 반영하여 담당업무의 개수를 구하는 쿼리문
+>SELECT
+    COUNT(DISTINCT job)
+FROM emp;
+
+-부서의 최대값과 최소값을 구하되, 최대 급여가 2900 이상인 부서만 출력하는 쿼리문
+>SELECT
+     deptno,max(sal),min(sal)
+ FROM emp GROUP by deptno HAVING max(sal)>=2900;
+
+-카테이션 곱에 대하여 설명하시오.
+>여러테이블에 흩어져 있는 정보 중에서 사용자가 필요한 정보만 가져와서 가상의 테이블처럼 만들어서 결과를 보여주는 것을 Join이라고 한다. 그런데 조인 조건을 기술하지 않았을 경우, 해당 테이블에 대한 모든 데이터를 가져오는 현상을 말한다. 
+>즉, 카테이션 곱이란 join 쿼리 중에 WHERE 절에 기술하는 join 조건이 잘못 기술되었거나 아예 없을 경우 발생하는 현상이다.
