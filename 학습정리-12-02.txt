@@ -1,0 +1,229 @@
+
+1. 아래의 문제를 푸시오.
+
+-아래를 구현하시오.
+DTO -  클래스 EmpDept
+DAO - 함수 작성 -위의 객체를 ArrayList로 담는 함수 작성
+ 
+12명의 아래의 정보 출력
+- 사원번호, 사원 이름, 부서명 , 부서 위치 
+-el 및 jstl을 사용 할것
+
+EmpDao.java>
+package edu.kosmo.ex.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import edu.kosmo.ex.dto.EmpDto;
+
+public class EmpDao {
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	private String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	private String uid = "scott";
+	private String upw = "tiger";
+
+	public EmpDao() {
+		try {
+			Class.forName(driver);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ArrayList<EmpDto> empselect(){
+		ArrayList<EmpDto> etos =new ArrayList<EmpDto>();
+		Connection con = null;
+		Statement stm = null;
+		ResultSet rs = null;
+		
+		try {
+			String query = "SELECT e.empno,e.ename,d.dname,d.loc FROM emp e, dept d WHERE e.deptno=d.deptno ";				
+			con = DriverManager.getConnection(url, uid, upw);
+			stm = con.createStatement();
+			rs = stm.executeQuery(query);
+			while(rs.next()) {
+				
+				
+				int empno =rs.getInt("empno");
+				String ename = rs.getString("ename");
+				String dname = rs.getString("dname");
+				String loc = rs.getString("loc");
+				
+				EmpDto eto = new EmpDto(empno, ename, dname, loc);
+				etos.add(eto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) rs.close();
+				if(stm!=null) stm.close();
+				if(con!=null) con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
+		}
+
+		return etos;		
+	}
+}
+
+EmpDto.java>
+package edu.kosmo.ex.dto;
+
+public class EmpDto {
+		private int empno;
+		private String ename;
+		private String dname;
+		private String loc;
+
+		
+		public EmpDto() { }
+		
+		public EmpDto(int empno, String ename, String dname, String loc) {
+			this.empno = empno;
+			this.ename = ename;
+			this.dname = dname;
+			this.loc = loc;
+		}
+		public int getEmpno() {
+			return empno;
+		}
+		public void setEmpno(int empno) {
+			this.empno = empno;
+		}
+		public String getEname() {
+			return ename;
+		}
+		public void setEname(String ename) {
+			this.ename = ename;
+		}
+		public String getDname() {
+			return dname;
+		}
+		public void setDname(String dname) {
+			this.dname = dname;
+		}
+		public String getLoc() {
+			return loc;
+		}
+		public void setLoc(String loc) {
+			this.loc = loc;
+		}
+	
+		
+}
+
+e_select.jsp>
+<body>
+	<% 
+	EmpDao eao = new EmpDao();
+	ArrayList<EmpDto> etos = eao.empselect();
+	pageContext.setAttribute("list",etos);	
+	%>
+<table border="1">
+<th>사원번호</th>
+<th>사원이름</th>
+<th>부서명</th>
+<th>부서위치</th>
+<tr>
+<c:forEach var="emp" items="${list}">
+<td>${emp.empno}</td>
+<td>${emp.ename}</td>
+<td>${emp.dname}</td>
+<td>${emp.loc}</td>
+</tr>
+</c:forEach>
+
+</table>
+</body>
+
+ 
+2. 4개의 영역(Scope)에 대하여 설명하시오.
+>page영역-하나의 jsp페이지를 처리할 때, 사용되는 영역으로 해당 페이지내에서만 사용가능하다.
+>request영역-포워딩까지, 여기에 담긴 메모리가 유지된다. 
+>session 영역 - 하나의 웹브라우저와 관련된 영역이다. 말하자면 이 영역에 담기면 하나의 프로젝트 내에서 사용가능하다.
+>application 영역 - 해당 어플리케이션이 정지될 때까지, 이 안에 담긴 것들을 사용할 수 있다.
+
+
+3. 아래의 조인에 대하여 설명하시오.
+-등가조인
+>등가 조인은 테이블을 연결한 후에 출력행을 각 테이블의특정 열에 일치한 데이터를 기준으로 선정하는 방식이다.
+ex)사원 정보를 출력할 때, 각 사원이 소속된 부서의 상세 정보를 출력
+SELECT
+    ename,dname
+FROM emp,dept WHERE emp.deptno =dept.deptno;
+
+-비등가 조인
+>조인 대상이 되는 테이블과 대응되는 컬럼이 없는 경우 범위를 지정하는 조건식으로 조인하는 방식이다.
+ex)각 사원의 급여가 몇 등급인지 살펴보는 쿼리문
+SELECT
+    ename,job,s.grade
+FROM salgrade s,emp e WHERE sal BETWEEN losal and hisal;
+
+-셀프 조인
+>동일 테이블 사이의 조인을 말한다. 따라서 from절에 동일 테이블이 두번 나타난다. 동일 테이블을 같이 쓰는 것이기 때문에 식별을 위해 별칭을 달아주어야 한다. 
+ex)이름이 smith인 사원의 매니저 이름
+SELECT
+    *
+FROM emp e1, emp e2 WHERE e1.ename ='SMITH' and e1.mgr=e2.empno ;
+
+
+4. 아래의 SQL 문을 작성하시오.
+
+-모든 사원의 이름,직업,부서이름,급여 및 등급을 출력하라.
+>SELECT
+    s.grade,ename,e.sal,d.dname
+FROM salgrade s,emp e ,dept d WHERE e.deptno= d.deptno and e.sal BETWEEN losal and hisal;
+
+
+-12명 사원의 메니져 이름을 출력하시오.
+>SELECT
+    e1.ename ||'의 매니저는' || e1.ename || '이다,'
+FROM emp e1, emp e2 WHERE  e1.mgr=e2.empno ;
+
+-Smith보다 늦게 입사한 사원의 이름 및 입사일을 출력하라.
+>SELECT
+   ename,hiredate
+FROM emp WHERE hiredate >= (select hiredate from emp WHERE ename = 'SMITH');
+=========================================================
+
+8번
+11 이 1초과 100 미만의 숫자인가?
+22 가 2의 배수 또는 3의 배수 숫자인가 ?
+위의 결과를 나타내시오.true false 로
+
+9번
+국영수 총점 평균 및 수우미양가출력
+
+66번
+
+. 아래의 cookie_set.jsp 파일에 대하여
+cookie get 를 클릭하면 모든 쿠키 값을 출력하는 cookie_get.jsp를 만드시오.
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+        Cookie cookie = new Cookie("CookieN","CookieV"); //쿠키객체생성
+        cookie.setMaxAge(60*60); //쿠키 시간 설정
+        
+        response.addCookie(cookie);
+%>
+
+        <a href="cookie_get.jsp">cookie get</a>
+
+</body>
+</html>
+
