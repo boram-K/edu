@@ -1,0 +1,284 @@
+1. jsp_board_test2 프로젝트를 생성하고, 아래의 객체를 완성하여 list.jsp 를 완성하시오.
+- DTO
+- DAO
+- Controller
+- Command
+
+dto.java>
+public class BDto { //DB에서 가져오기 위한 트랜스퍼
+	private int bid;
+	private String bname;
+	private String btitle;
+	private String bcontent;
+	private Timestamp bdate;
+	private int bhit;
+	private int bgroup;
+	private int bstep;
+	private int bindent;
+	//기본적으로 long으로 줘야지만 우리는 일단 int를 쓴다.
+		
+	public BDto() { }
+	
+	public BDto(int bid, String bname, String btitle, String bcontent, Timestamp bdate, int bhit, int bgroup, int bstep,
+			int bindent) {
+
+		this.bid = bid;
+		this.bname = bname;
+		this.btitle = btitle;
+		this.bcontent = bcontent;
+		this.bdate = bdate;
+		this.bhit = bhit;
+		this.bgroup = bgroup;
+		this.bstep = bstep;
+		this.bindent = bindent;
+	}
+	public int getBid() {
+		return bid;
+	}
+	public void setBid(int bid) {
+		this.bid = bid;
+	}
+	public String getBname() {
+		return bname;
+	}
+	public void setBname(String bname) {
+		this.bname = bname;
+	}
+	public String getBtitle() {
+		return btitle;
+	}
+	public void setBtitle(String btitle) {
+		this.btitle = btitle;
+	}
+	public String getBcontent() {
+		return bcontent;
+	}
+	public void setBcontent(String bcontent) {
+		this.bcontent = bcontent;
+	}
+	public Timestamp getBdate() {
+		return bdate;
+	}
+	public void setBdate(Timestamp bdate) {
+		this.bdate = bdate;
+	}
+	public int getBhit() {
+		return bhit;
+	}
+	public void setBhit(int bhit) {
+		this.bhit = bhit;
+	}
+	public int getBgroup() {
+		return bgroup;
+	}
+	public void setBgroup(int bgroup) {
+		this.bgroup = bgroup;
+	}
+	public int getBstep() {
+		return bstep;
+	}
+	public void setBstep(int bstep) {
+		this.bstep = bstep;
+	}
+	public int getBindent() {
+		return bindent;
+	}
+	public void setBindent(int bindent) {
+		this.bindent = bindent;
+	}
+		
+}
+
+Dao>
+public class BDao {
+	private DataSource dataSource; // 커넥션 풀. sql인지 확인.
+
+	// 우선 생성자 만들기.
+	public BDao() {
+		try {
+			Context context = new InitialContext(); // 커텍스트xml을 가져오는 객체.
+			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/oracle");// 얘는 공식
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public ArrayList<BDto> list() { // emp리스트가져오는 것과 똑같은
+
+		ArrayList<BDto> btos = new ArrayList<BDto>();
+
+		Connection con = null;
+		PreparedStatement preparedStatment = null;
+		ResultSet rs = null;
+
+		try {
+			String query = "SELECT * FROM mvc_board ORDER BY bgroup DESC, bstep ASC"; // 중요!! 댓글도 순서대로 가져와야기 때문에
+
+			con = dataSource.getConnection(); // 데이터소스가 이미 다읽어들였기 때문에
+			preparedStatment = con.prepareStatement(query);
+			rs = preparedStatment.executeQuery();
+
+			while (rs.next()) {
+				int bid = rs.getInt("bid");
+				String bname = rs.getString("bname");
+				String btitle = rs.getString("btitle");
+				String bcontent = rs.getString("bcontent");
+				Timestamp bdate = rs.getTimestamp("bdate");
+				int bhit = rs.getInt("bhit");
+				int bgroup = rs.getInt("bgroup");
+				int bstep = rs.getInt("bstep");
+				int bindent = rs.getInt("bindent");
+
+				BDto bto = new BDto(bid, bname, btitle, bcontent, bdate, bhit, bgroup, bstep, bindent);
+				btos.add(bto);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (preparedStatment != null)
+					preparedStatment.close();
+				if (con != null)
+					con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		return btos;
+
+	}
+}
+
+ Controller>
+@WebServlet("*.do") //.do로 치고 오는 것들은 모두 받아내겠다는 의미.
+public class BController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public BController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doget"); //디버깅용 문구
+		actionDo(request,response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doPost");
+		actionDo(request,response);
+	}
+	
+	private void actionDo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+		System.out.println("actionDo");
+		request.setCharacterEncoding("UTF-8");
+		
+		String viewPage = null;
+		BCommand command = null; //이부분이 인테페이스 Command부분. create 인터페이스로 생성.
+		//컨트롤러가 커맨드 생성->그 커맨드가 DAO생성하고 DAO가 DTO 생성. 그다음 받아서 콘트롤러가 화면에 출력
+		
+		String uri = request.getRequestURI();
+		String conPath = request.getContextPath();
+		String com =uri.substring(conPath.length());//명령을 주기위한 것.
+		
+		if(com.equals("/list.do")) {//유저가 컨텍스트명list.do 를 치고 들어오면 이것을 실행하라.
+			command = new BListCommand();//클래스 생성. 커맨드와 같은 패키지에 위치할 수 있도록
+			command.execute(request, response); //여기가 커맨드에 정보를 받아낸것.
+			viewPage = "list.jsp";
+
+}
+RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);//이 객체가 실제로 사용자에게 보여준다.
+dispatcher.forward(request, response); //얘를 파파라치라고 말함. 
+		
+		
+		
+	}
+}
+
+ Command>
+public class BListCommand implements BCommand { // 기본적으로 BCommand를 상속받는다. 그래서 무조건 구현
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	BDao bdao = new BDao();
+ 	 ArrayList<BDto> btos = bdao.list(); //jsp파일이 아닌 이곳에 원래 넣어줘야하는 것이다.
+		
+		
+request.setAttribute("list", btos); //핵심코드. 리스트라는 이름에 게시판을 넣어둔것.
+//request라는 것은 포워딩때까지 메모리에 살아있다. 
+//즉, jsp에서 객체생성이 아닌 리퀘스트영역에 게시판을 넣어두는 것.
+		
+		
+		
+		
+	}
+
+}
+
+
+
+
+2. 아래의 용어를 설명하고, 해당 명령어 종류는?
+-DML 
+>데이터 조작어라고 한다.
+>select,insert,update,delete 명령어들이 있다.
+>select는 DB에 들어있는 데이터베이스를 조회하거나 검색하기 위한 명령어이다.
+>insert,update,delete는 DB의 테이블에 들어간 데이터에 삽입,수정,삭제의 명령어들을 말한다.
+
+-DCL
+>데이터 제어어
+>grant,revoke 명령어들이 있다. 
+>DB에 접근하고 객체를 사용하도록 권한을 주고 회수하는 명령어들을 말한다.
+
+-DDL
+>데이터 정의어
+>create,alter,drop,rename,truncate명령어들이 있다
+>테이블과 같은 데이터 구조를 정의하는데 사용되는 명령어들로, 생성, 변경,삭제,이름변경의 명령어이다.
+
+3. 데이타 딕션러리에 대하여 설명하시오.
+>DB자원을 효율적으로 관리하기 위한 다양한 정보를 저장하는 시스템 테이블이다.
+>시스템 테이블이라고 할 수 있다.(user_tables)
+
+
+4. DELETE, TRUNCATE, DROP 명령어의 차이점은?
+>delete는 데이터는 지워지지만 테이블 용량은 줄어들지 않는다. 복구 가능.
+>truncate은 용향이 줄어들고,인덱스등도 모두 삭제한다. 테이블만 남고, 삭제후복구 불가능
+>drop테이블 전체 삭제. 절대 복구 불가능. (지우기전에 삼세번 검사받자)
+
+=========================================
+5번
+
+이클립스로 java_area 프로젝트를 만들고
+아래의 조건으로 프로그램하시오.
+CircleArea.java 파일을 만들고
+
+원의 반지름 5.6 을 담는 변수 선언.
+PI 상수로 선언 
+, 
+
+원의 넓이 공식 파이알의제곱을 담는 변수 선언 하여 
+넓이를 담고 출력
+
+=======================================
+69번
+
+ jsp_board_test1 프로젝트를 생성하고, 아래의 객체를 완성하여 list.jsp 를 완성하시오.
+- DTO
+- DAO
+- Controller
+- Command
+
