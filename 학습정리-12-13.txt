@@ -1,0 +1,170 @@
+1. 아래와 같이 프포그래밍 하시오.
+interface Shape
+- double getArea();
+- void setWidth(double width)
+- void setHeight(double height)
+
+
+삼각형 , 사각형 객체를 위의 인터페이스를 구현하여, 
+appCTX4에 객체 생성후 Pencile 과 같이 다형성이 적용되도록 Main을 짜시오.
+>Shape.java>
+package com.javalec.ex.test;
+
+public interface Shape {
+	
+	 double getArea();	
+	 void setWidth(int width);
+	 void setHeight(int height);
+
+}
+
+Rectangle.java>
+package com.javalec.ex.test;
+
+public class Rectangle implements Shape {
+	private int width;
+	private int height;
+	
+	public Rectangle() {}
+
+	@Override
+	public double getArea() {
+		return width*height;
+	}
+
+	@Override
+	public void setWidth(int width) {
+		this.width=width;
+		
+	}
+
+	@Override
+	public void setHeight(int height) {
+		this.height=height;
+		
+	}
+
+}
+Triangle.java>
+package com.javalec.ex.test;
+
+public class Triangle implements Shape {
+	
+	private int height;
+	private int width;
+	
+	public Triangle() {}
+
+	
+
+
+	@Override
+	public double getArea() {
+		return (height*width)/2;
+	}
+
+
+
+
+	@Override
+	public void setWidth(int width) {
+		this.width=width;
+		
+	}
+
+	@Override
+	public void setHeight(int height) {
+		this.height=height;
+		
+	}
+
+}
+appCTX4.xml>
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="shape" class="com.javalec.ex.test.Triangle">
+	<property name="height" value="10"></property>
+	<property name="width" value="5"></property>
+	</bean>
+	
+	
+</beans>
+
+main.java>
+package com.javalec.ex.test;
+
+import org.springframework.context.support.AbstractApplicationContext;
+
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+public class ShapeMain {
+
+	public static void main(String[] args) {
+		
+		String config = "classpath:appCTX4.xml";
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext(config);
+		
+		Shape shape = ctx.getBean("shape",Shape.class);
+		
+		
+		
+		System.out.println("넓이는 "+shape.getArea());
+		ctx.close();//클로즈시키면 클로즈문구도 콘솔에 나옴
+		
+
+	}
+
+}
+>
+넓이는 25.0
+
+2. javascript 에서, 데이터 타입 종류와 변수 선언 방법은?
+>타입 종류
+String(문자열),Number(숫자),boolean
+>선언방법
+<script >
+        //문자열
+      var str = "가나다라마사아";
+      console.log("str:"+str);   
+      console.log(str+"\tABCD\"")
+      //숫자
+        var num =123;
+        console.log("num:"+num);
+        console.log(num+1000);
+      //boolean
+        var boo = true;
+        console.log("boolean:"+boo);
+    </script>
+
+
+3. javascript 에서 아래의 함수는?
+-alret
+경고창띄우는 함수
+-prompt
+>입력창을 띄우는 함수.
+자바에서 Scanner와 같이 입력받을 수 있게 한다.
+-confirm
+>boolean형으로 예/아니오에 따라 진행할지 말지가 정해진다.
+=====================================================================
+54번
+
+        ThreadCount threadCount = new ThreadCount();
+                threadCount.start();
+                
+                String input = JOptionPane.showInputDialog("아무 값이나 입력하세요."); 
+                System.out.println("입력하신 값은 " + input + "입니다.");
+10 9 8 7 6 ... 이 1초마다 실행 되도록 쓰레를 완성하시오.
+
+55번
+html - 메뉴 4개 구성 
+
+html 12강 css속성 에 있습니다. 
+
+12-2. font-style, font-weight, line-height 속성 
+CSS 코드줄은 몇줄 되지 않아요. 
+한번 복습해서, 내일 돌려보도록 합시다.
+
+꼭 하도록 합시다.
