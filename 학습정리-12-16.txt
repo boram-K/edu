@@ -1,0 +1,288 @@
+1.스프링 에서의 커맨드 객체에 대하여 설명하시오.
+>spring mvc의 view페이지에서 서버로 데이터를 넘기고 받는 것에 사용된다.
+>httpServletRequest방식이나 @RequestParam로 받는 방법은 요청한 파라미터가 어떤 것인지 명확하게 알 수 있다는 점이지만 많은 데이터를 요청하는 경우에 코드가 지저분해지고 길어진다. 
+>커맨드 객체를 사용할 경우 위의 두 방법과 다르게 훨씬 간결하게 파라미터 값을 가져올 수 있다. 지켜야할 것은 요청 파라미터의 속성값과 DTO에서의 객체 속성값이 같아야 한다는 점이다. 그래야 자동으로 찾아서 가져올 수 있다.
+
+2.아래를 프로그래밍 하시오.
+-국영수 입력 받아 출력 합계 평균 수우미양가 출력
+
+-커맨드 객체 사용 할것
+-view폴더 /grade
+-GradeContrller
+ grade/input - /grade/input.jsp
+ grade/result - /grade/result.jsp
+-롬복이 사용 할것
+
+GradeController.java>
+package edu.kosmo.ex;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import edu.kosmo.ex.grade.Grade;
+import edu.kosmo.ex.member.Member;
+
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
+public class GradeController {
+
+	
+	@RequestMapping("grade/input")
+	public String input(Grade grade) {
+
+		return "grade/input"; 
+	}
+	@RequestMapping("grade/result")
+	public String result(Grade grade) {
+
+		return "grade/result"; 
+	}
+	
+	
+}
+
+Grade.java>
+package edu.kosmo.ex.grade;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor 
+@ToString
+@Getter
+@Setter
+public class Grade {
+	private int kor;
+	private int eng;
+	private int math;
+	private int tatal;
+	
+	public int total() {
+		return kor+eng+math;
+	}
+	public double avg() {
+		return (kor+eng+math)/3.0;
+	}
+	public String grade() {
+		String g ="";
+		
+		if(avg()>=90) {
+			g="수";
+		}else if(avg()>=80) {
+			g="우";
+		}else if(avg()>=70) {
+			g="미";
+		}else if(avg()>=60) {
+			g="양";
+		}else {
+			g="가";
+		}
+		return g;
+	}
+}
+
+input.jsp>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" %>
+<html>
+<head>
+	<title>input</title>
+</head>
+<body>
+
+<table border="1">
+<form action="/ex/grade/result">
+	국어:<input type="text" name="kor"><br>
+	영어:<input type="text" name="eng"><br>
+	수학:<input type="text" name="math"><br>
+	<input type="submit">
+</form>
+</table>
+
+
+</body>
+</html>
+
+result.jsp>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" %>
+<html>
+<head>
+	<title>check</title>
+</head>
+<body>
+
+국어:${grade.kor}<br>
+영어:${grade.eng}<br>
+수학:${grade.math}<br>
+
+총점:${grade.total()}<br>
+평균:${grade.avg()}<br>
+학점:${grade.grade()}<br>
+
+
+
+</body>
+</html>
+
+
+3.아래를 참고 하여, 프로그래밍 하시오.
+
+- 입력값을 하나 받아 .. 석탑 만들기
+
+-
+-view폴더 /tower
+-GradeContrller
+ tower/input - /tower/input.jsp // 입력값 받기
+ tower/result - /tower/tower.jsp // 석탑 출력
+
+- 단 아래를 참고 하여, js 문법으로 처리 할것
+
+시작하기에 앞서 서버가 동작하는 순서를 기억해둬야 할 필요가 있습니다.
+JAVA -> JSTL -> HTML -> Javascript
+
+<script language=JavaScript>
+    // 방법 1
+    var data = '<c:out value="${dataName}"/>';
+    
+    // 방법 2
+    var data2 = ${dataName};
+</script>
+
+
+
+Tower.java>
+package edu.kosmo.ex.tower;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Getter
+@Setter
+public class Tower {
+	private int num1;
+
+}
+TowerController.java>
+package edu.kosmo.ex;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import edu.kosmo.ex.grade.Grade;
+import edu.kosmo.ex.member.Member;
+import edu.kosmo.ex.tower.Tower;
+
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
+public class TowerController {
+
+	
+	@RequestMapping("tower/input")
+	public String input(Tower tower) {
+
+		return "tower/input"; 
+	}
+	@RequestMapping("tower/result")
+	public String result(Tower tower) {
+
+		return "tower/result"; 
+	}
+	
+	
+}
+input.jsp>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" %>
+<html>
+<head>
+	<title>input</title>
+</head>
+<body>
+
+<table border="1">
+<form action="/ex/tower/result">
+	타워 층 수:<input type="text" name="num1"><br>
+
+	<input type="submit">
+</form>
+</table>
+
+
+</body>
+</html>
+
+result.jsp>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" %>
+<html>
+<head>
+	<title>check</title>
+<script type="text/javascript">
+let num =${tower.num1};
+for(let i  =0;i<num;i++){
+    for(let j=0;j<i;j++){
+        document.write("*");
+    }
+    document.write("<br>");
+}
+
+</script>
+	
+</head>
+<body>
+
+${tower.num1}층 타워 <br>
+
+</body>
+</html>
+
+=====================================================================
+
+ 개별 진척도
+
+48. ArrayList 에 1부터 10까지 차례대로 입력후 출력하시오,
+49. 홀리그램을 완성하시오.(header:위 content 좌 banner 우 footer 밑) 
+-부트스트랩 이든 뭐든 다 좋음
+
+
+위의 2번 하도록 하겠습니다. (70번 문제) - 국영수 스프링 처리
+
+
+
