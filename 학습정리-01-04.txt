@@ -1,0 +1,101 @@
+1. jS - 국영수를 입력하는 3개의 input 박스를 생성후 , 
+
+-국영수를 입력하는 3개의 input 박스를 생성
+-총점 과 리셋 버튼을 생성
+-총점 버튼을 누루면 총점과 평균이 나타남
+------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+			$(document).ready(function(){ 
+            class Grade{
+               constructor(kor,eng,math){
+                  this.kor = Number(kor);
+                  this.eng = Number(eng);
+                  this.math = Number(math);
+               }
+               total(){
+                  return this.kor+this.eng+this.math;
+               }
+               avg(){
+                  return (this.total()/3.0).toFixed(2);
+               }
+            }
+            $("#send").click( () => {
+               let k = Number($("#k").val());
+               let e = Number($("#e").val());
+               let m = Number($("#m").val());
+               console.log("입력됨 : " + k+","+e+","+m);
+
+               let student = new Grade(k,e,m);
+
+               $("#total").text(student.total());
+               $("#average").text(student.avg());               
+            });
+            $("#reset").click( () => {
+               $("#total").empty();
+               $("#average").empty();
+               $("input#k").val("");
+               $("#e").val("");
+               $("#m").val("");
+
+            });         
+         });
+      
+</script>
+
+</head>
+
+<body>
+   <div>
+ <form>
+ 국어 : <input type="text" id="k" name="kor"><br/>
+ 영어 : <input type="text" id="e" name="eng"><br/>
+ 수학 : <input type="text" id="m" name="math"><br/>
+<button id="send" type="button" value="전송"> 전송
+<button id="reset" type="button" value="리셋"> 리셋<br>
+</form>
+</div>
+<br/>
+
+<div>
+<table style="border: 1px solid #cccc;">
+   <tr>
+      <th>총점</th>
+      <th>평균</th>
+   </tr>
+   <tr>
+      <th id="total">0</th>
+      <th id="average">0</th>
+   </tr>
+</table>
+</div>
+</body>
+</html>  
+
+
+
+=========================================
+내일 위의 것 타이머 돌리도록 하겠습니다.
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
